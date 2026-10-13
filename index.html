@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI JACUZZI · 湯の宿</title>
+  <meta name="description" content="백 년의 온기를 품은 전통 목조 온천장, AI JACUZZI">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&family=Yuji+Syuku&family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header" id="header">
+  <a href="#top" class="logo" aria-label="AI JACUZZI 홈">
+    <span class="logo__mark">湯</span>
+    <span class="logo__text">
+      <span class="logo__kana">ゆのやど</span>
+      <span class="logo__en">AI JACUZZI</span>
+    </span>
+    <span class="logo__stamp">月光</span>
+  </a>
+  <nav class="nav" id="nav">
+    <a href="#about">ABOUT</a>
+    <a href="#bath">BATH</a>
+    <a href="#reservation">RESERVATION</a>
+    <a href="#location">LOCATION</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+
+<!-- ================= HERO : 외관 → 내부 영상 ================= -->
+<section class="hero" id="top">
+  <!-- assets/hero.mp4 가 있으면 실제 영상을 재생하고, 없으면 아래 시네마틱 시퀀스가 재생됩니다 -->
+  <video class="hero__video" id="heroVideo" muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero__reel" id="heroReel" aria-hidden="true">
+    <div class="reel__shot" data-img="Dogo onsen honkan long exposure.jpg" data-label="外観 · 목욕탕 외관"></div>
+    <div class="reel__shot" data-img="Night in Ginzan Onsen town January 2022 A.jpg" data-label="外観 · 온천 거리의 밤"></div>
+    <div class="reel__shot" data-img="The view from BANDAI in Japanese SENTO 番台からの眺め 01.jpg" data-label="内湯 · 목욕탕 내부"></div>
+    <div class="reel__shot" data-img="Inside Goshono-yu Kinosaki Onsen.jpg" data-label="内湯 · 대욕장"></div>
+    <div class="reel__shot" data-img="Matsushima Onsen &quot;ICHINOBŌ&quot; Indoor-bath.JPG" data-label="内湯 · 김이 오르는 탕"></div>
+  </div>
+  <canvas class="hero__steam" id="steam" aria-hidden="true"></canvas>
+  <div class="hero__shade"></div>
+
+  <div class="hero__label" id="heroLabel">外観 · 목욕탕 외관</div>
+
+  <div class="hero__copy">
+    <h1>몸과 마음이 쉬어가는 온천<br>일본 여행은 “AI JACUZZI”</h1>
+    <p>“AI JACUZZI”는 백 년 된 목조 온천장의 온기를 그대로 담아<br>
+      고객님들이 편안한 휴식을 누리실 수 있도록<br>
+      매일 새로 길어 올린 온천수로 탕을 채웁니다.</p>
+    <div class="hero__logo">
+      <span class="logo__mark">湯</span>
+      <span class="logo__text">
+        <span class="logo__kana">ゆのやど</span>
+        <span class="logo__en">AI JACUZZI</span>
+      </span>
+      <span class="logo__stamp">月光</span>
+    </div>
+  </div>
+  <div class="hero__vertical">ゆのやど</div>
+  <div class="hero__progress"><span id="heroBar"></span></div>
+</section>
+
+<!-- ================= 01 ABOUT ================= -->
+<section class="about section" id="about">
+  <div class="about__text reveal">
+    <p class="eyebrow">01_ ABOUT US</p>
+    <h2 class="title">백 년의 온기를 품은<br>전통 목조 온천장</h2>
+    <a href="#bath" class="btn-line">READ MORE <i>›</i></a>
+  </div>
+  <div class="about__photos">
+    <figure class="reveal" data-img="Dogo onsen.JPG"></figure>
+    <figure class="reveal" data-img="Noren at a sento by udono in Yoyogi, Tokyo.jpg"></figure>
+    <figure class="reveal" data-img="Kurokawa-onsen.jpg"></figure>
+  </div>
+</section>
+
+<!-- ================= BANNER ================= -->
+<section class="banner">
+  <div class="banner__head reveal">
+    <h2>전통 목욕 문화와 새로운 휴식의 콜라보<br>“AI JACUZZI”만의 특별함</h2>
+    <p>A COLLABORATION OF BATHING TRADITION AND NEW REST.<br>SPECIAL ONLY IN “AI JACUZZI”</p>
+  </div>
+  <div class="banner__img" data-img="Evening twilight in Ginzan Onsen town January 2022 A.jpg">
+    <div class="banner__logo reveal">
+      <span class="logo__mark">湯</span>
+      <span class="logo__text">
+        <span class="logo__kana">ゆのやど</span>
+        <span class="logo__en">AI JACUZZI</span>
+      </span>
+      <span class="logo__stamp">月光</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4 FEATURES ================= -->
+<section class="features section">
+  <article class="feature reveal">
+    <figure data-img="Tsurunoyu onsen rotenburo.JPG"></figure>
+    <h3>[湯]</h3>
+    <p>원천 그대로의 온천수를<br>매일 새로 채웁니다.</p>
+  </article>
+  <article class="feature reveal">
+    <figure data-img="Kaiseki - Kyoto.jpg"></figure>
+    <h3>[食べ物]</h3>
+    <p>제철 재료의 가이세키 요리를<br>투숙객에게 제공합니다.</p>
+  </article>
+  <article class="feature reveal">
+    <figure data-img="Kinosaki Onsen onsen eggs ac (1).jpg"></figure>
+    <h3>[お土産]</h3>
+    <p>온천 만주·온천 달걀 등<br>기념품을 만나보세요.</p>
+  </article>
+  <article class="feature reveal">
+    <figure data-img="Yubatake (7154088129).jpg"></figure>
+    <h3>[散歩]</h3>
+    <p>유카타 차림으로 걷는<br>온천 거리 산책이 가깝습니다.</p>
+  </article>
+</section>
+
+<!-- ================= 02 BATH (사계절 탕) ================= -->
+<section class="bath section" id="bath">
+  <div class="bath__head reveal">
+    <p class="eyebrow">02_ BATH</p>
+    <h2 class="title">계절을 담은 네 개의 탕<br><small>사계절 다른 풍경을 보여드리는 탕을 소개합니다.</small></h2>
+  </div>
+  <div class="bath__grid">
+    <a class="season reveal" href="#reservation" data-img="Matsushima Onsen &quot;ICHINOBŌ&quot; Indoor-bath.JPG">
+      <strong>[春]</strong><span>봄햇살 같은 내탕</span>
+    </a>
+    <a class="season reveal" href="#reservation" data-img="W(2010)HINOKI-SOUKEN O-bath.jpg">
+      <strong>[夏]</strong><span>더위를 씻어주는 히노키탕</span>
+    </a>
+    <a class="season reveal" href="#reservation" data-img="Tsurunoyu Onsen 02.jpg">
+      <strong>[秋]</strong><span>단풍을 바라보는 노천탕</span>
+    </a>
+    <a class="season reveal" href="#reservation" data-img="Magoroku Onsen Outdoor Bath Winter.jpg">
+      <strong>[冬]</strong><span>첫눈처럼 포근한 설경탕</span>
+    </a>
+  </div>
+  <div class="bath__vertical" aria-hidden="true">
+    <span class="v-en">AI · JACUZZI</span>
+    <span class="v-jp">ゆのやど</span>
+    <span class="logo__stamp">月光</span>
+  </div>
+</section>
+
+<!-- ================= 03 RESERVATION ================= -->
+<section class="reserve section" id="reservation">
+  <div class="reserve__head reveal">
+    <p class="eyebrow">03_ RESERVATION</p>
+    <h2 class="title">이용 안내<br>탕별 예약</h2>
+  </div>
+  <div class="reserve__body">
+    <div class="reserve__info reveal">
+      <p class="eyebrow">INFORMATION</p>
+      <p>예약 전 해당 안내사항을 꼭 확인해주세요.<br>내용을 모두 숙지 후 버튼을 클릭해 예약해주세요.</p>
+      <a href="#" class="btn-fill" id="agreeBtn">AGREE <i>›</i></a>
+    </div>
+    <div class="accordion reveal" id="faq">
+      <details>
+        <summary><em>4</em>이용 시간 안내</summary>
+        <div>대욕장 06:00 – 24:00 (청소 시간 10:00 – 11:00)<br>노천탕 15:00 – 23:00 / 가족탕은 50분 단위 예약제로 운영됩니다.</div>
+      </details>
+      <details>
+        <summary><em>3</em>요금 / 환불 안내</summary>
+        <div>당일 입욕 성인 1,500엔 · 어린이 700엔 (수건 대여 포함)<br>이용 3일 전 취소 시 전액 환불, 2일 전 50%, 당일 취소는 환불되지 않습니다.</div>
+      </details>
+      <details>
+        <summary><em>2</em>입욕 매너</summary>
+        <div>입욕 전 가케유로 몸을 씻어주세요. 수건은 탕 안에 넣지 않습니다.<br>타투가 있는 경우 가족탕 이용을 권해드립니다.</div>
+      </details>
+      <details>
+        <summary><em>1</em>문의사항</summary>
+        <div>예약 및 단체 이용 문의는 TEL 또는 우측 TALK 버튼으로 연락 주세요.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 LOCATION ================= -->
+<section class="location" id="location" data-img="Kusatsu Yubatake, Gunma 03.jpg">
+  <div class="location__inner reveal">
+    <p class="eyebrow">04_ LOCATION</p>
+    <h2 class="title">찾아오시는 길</h2>
+    <p>온천 거리 중심, 붉은 다리를 건너면 바로 보이는 목조 3층 건물입니다.<br>
+      역에서 도보 7분 · 무료 셔틀 운행 (09:00 – 18:00, 30분 간격)</p>
+    <a href="#" class="btn-fill">READ MORE <i>›</i></a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer__brand">
+    <a href="#top" class="logo logo--dark">
+      <span class="logo__mark">湯</span>
+      <span class="logo__text">
+        <span class="logo__kana">ゆのやど</span>
+        <span class="logo__en">AI JACUZZI</span>
+      </span>
+      <span class="logo__stamp">月光</span>
+    </a>
+    <p class="footer__links"><a href="#">TERMS AND CONDITIONS</a> / <a href="#">PRIVACY POLICY</a></p>
+  </div>
+  <div class="footer__info">
+    <ul>
+      <li>AI JACUZZI / CEO : JENNY OOO</li>
+      <li>BUSINESS REGISTRATION NUMBER : 000-00-00000</li>
+      <li>MAIL-ORDER-SALES REGISTRATION NUMBER : NO.0000-00-0000</li>
+      <li>CHIEF PRIVACY OFFICER : JENNY OOO</li>
+      <li>ADD : 1-1 Yunomachi, Onsen-gun, Japan</li>
+    </ul>
+    <ul>
+      <li>OPEN : 06:00 - 24:00</li>
+      <li>CLEANING TIME : 10:00 - 11:00</li>
+      <li>HOLIDAY : EVERY 2ND TUESDAY</li>
+      <li>E-MAIL : hello@aijacuzzi.jp</li>
+      <li>TEL : +81 00 0000 0000</li>
+    </ul>
+    <a href="#reservation" class="btn-fill btn-fill--wide">BOOK YOUR BATH <i>›</i></a>
+  </div>
+  <details class="credits">
+    <summary>PHOTO CREDITS · Wikimedia Commons</summary>
+    <ul id="creditList"></ul>
+  </details>
+</footer>
+
+<!-- 플로팅 버튼 -->
+<div class="floating">
+  <a href="#reservation" class="fab"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2M14 17h2"/></svg>예약하기</a>
+  <a href="#" class="fab"><b>TALK</b></a>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
