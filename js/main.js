@@ -31,17 +31,20 @@
     creditList.append(li);
   };
 
+  // "assets/..." 로 시작하면 리포지토리 안의 내 이미지, 아니면 Commons 파일명
+  const isLocal = name => name.startsWith('assets/');
+
   const applyImage = async el => {
     const names = el.dataset.img.split('|').map(n => n.trim()).filter(Boolean);
     const width = el.matches('.reel__shot, .banner__img, .location') ? 1920 : 1000;
     el.classList.add('img-loading');
     for (const name of names) {
       try {
-        const url = await loadImage(fileUrl(name, width));
+        const url = await loadImage(isLocal(name) ? encodeURI(name) : fileUrl(name, width));
         el.style.backgroundImage = `url("${url}")`;
         el.classList.remove('img-loading');
         el.classList.add('img-ready');
-        addCredit(name);
+        if (!isLocal(name)) addCredit(name);
         return true;
       } catch (e) { /* 다음 후보 시도 */ }
     }
@@ -53,42 +56,92 @@
   const imageJobs = new Map();
   document.querySelectorAll('[data-img]').forEach(el => imageJobs.set(el, applyImage(el)));
 
-  // ---------- 2. 히어로 : 외관 → 내부 영상 (HTML·CSS·JS) ----------
+  // ---------- 2. 히어로 슬라이드 : 외관 → 내부 → 기념품 ----------
   const hero = document.querySelector('.hero');
   const allShots = [...document.querySelectorAll('.reel__shot')];
   const label = document.getElementById('heroLabel');
   const bar = document.getElementById('heroBar');
+  const dotsBox = document.getElementById('heroDots');
+  const nowEl = document.getElementById('heroNow');
+  const totalEl = document.getElementById('heroTotal');
   const SHOT_MS = 6000;
+  const pad = n => String(n).padStart(2, '0');
   let shots = allShots.slice();   // 불러오기에 실패한 컷은 순서에서 빠집니다
-  let idx = 0;
+  let current = null;
+  let timer = null;
 
-  const showShot = shot => {
-    allShots.forEach(s => s.classList.remove('is-on'));
-    void shot.offsetWidth; // Ken Burns 애니메이션 재시작
-    shot.classList.add('is-on');
+  const renderDots = () => {
+    dotsBox.innerHTML = '';
+    shots.forEach((shot, i) => {
+      const b = document.createElement('button');
+      b.setAttribute('aria-label', `${i + 1}번 사진`);
+      b.classList.toggle('is-on', shot === current);
+      b.addEventListener('click', () => go(shot, shots.indexOf(shot) < shots.indexOf(current) ? -1 : 1));
+      dotsBox.append(b);
+    });
+    totalEl.textContent = pad(shots.length);
+    nowEl.textContent = pad(Math.max(1, shots.indexOf(current) + 1));
+  };
+
+  // dir 1 = 오른쪽에서 들어옴, -1 = 왼쪽에서 들어옴
+  const go = (next, dir = 1) => {
+    if (!next || next === current) return;
+    const prev = current;
+    // 들어올 사진을 시작 위치로 순간 이동
+    next.style.transition = 'none';
+    next.style.translate = dir > 0 ? '100% 0' : '-100% 0';
+    void next.offsetWidth;
+    next.style.transition = '';
+    next.style.translate = '';
+    allShots.forEach(s => s.classList.remove('is-on', 'is-out'));
+    next.classList.add('is-on');
+    if (prev) {
+      prev.style.translate = dir > 0 ? '-30% 0' : '30% 0';
+      prev.classList.add('is-out');
+      setTimeout(() => { if (prev !== current) prev.style.translate = ''; }, 1200);
+    }
+    current = next;
     label.style.opacity = 0;
-    setTimeout(() => { label.textContent = shot.dataset.label; label.style.opacity = 1; }, 400);
+    setTimeout(() => { label.textContent = next.dataset.label; label.style.opacity = 1; }, 400);
     bar.style.transition = 'none';
     bar.style.width = '0';
     requestAnimationFrame(() => requestAnimationFrame(() => {
       bar.style.transition = `width ${SHOT_MS}ms linear`;
       bar.style.width = '100%';
     }));
+    renderDots();
+    restart();
   };
+
+  const step = dir => {
+    if (!shots.length) return;
+    const i = shots.indexOf(current);
+    go(shots[(i + dir + shots.length) % shots.length], dir);
+  };
+  const restart = () => { clearInterval(timer); timer = setInterval(() => step(1), SHOT_MS); };
+
+  document.getElementById('heroNext').addEventListener('click', () => step(1));
+  document.getElementById('heroPrev').addEventListener('click', () => step(-1));
+  let touchX = null;
+  hero.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+    touchX = null;
+  });
 
   allShots.forEach(shot => imageJobs.get(shot).then(ok => {
     if (ok) return;
+    const wasCurrent = shot === current;
+    if (wasCurrent) step(1);
     shots = shots.filter(s => s !== shot);
     shot.classList.remove('is-on');
-    if (!shots.length) hero.classList.add('hero--fallback');
+    if (!shots.length) { hero.classList.add('hero--fallback'); clearInterval(timer); }
+    renderDots();
   }));
 
-  showShot(shots[0]);
-  setInterval(() => {
-    if (!shots.length) return;
-    idx = (idx + 1) % shots.length;
-    showShot(shots[idx]);
-  }, SHOT_MS);
+  go(shots[0]);
 
   // ---------- 3. 온천 김(steam) 캔버스 ----------
   const canvas = document.getElementById('steam');
