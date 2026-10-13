@@ -37,33 +37,29 @@
 <section class="hero" id="top">
   <!-- HTML·CSS·JS 만으로 재생되는 히어로 영상 : 외관 → 내부 -->
   <div class="hero__reel" id="heroReel" aria-hidden="true">
-    <!-- 外観 : 온천 외관 -->
-    <div class="reel__shot" data-img="assets/images/hero/exterior-bridge.jpg" data-label="外観 · 붉은 다리 건너 목욕탕"></div>
-    <div class="reel__shot" data-img="Dogo onsen honkan long exposure.jpg|Dogo Onsen 2017-04-05 (34099934150).jpg|assets/images/exterior-night.jpg" data-label="外観 · 불 밝힌 목조 온천장"></div>
-    <!-- 内湯 : 온천 내부 -->
-    <div class="reel__shot" data-img="assets/images/hero/interior-dragon.jpg" data-label="内湯 · 용머리 탕"></div>
-    <div class="reel__shot" data-img="The view from BANDAI in Japanese SENTO 番台からの眺め 01.jpg|Bath at the Edo-Tokyo Open Air Architectural Museum.jpg|assets/images/interior-mural.jpg" data-label="内湯 · 타일 벽화 대욕장"></div>
+    <!-- 메인 이미지 2장 (원본 전체가 보이도록) -->
+    <div class="reel__shot reel__shot--whole" data-img="assets/images/hero/main-1.jpg" data-label="湯の宿 · 목욕탕 외관과 내부"></div>
+    <div class="reel__shot reel__shot--whole" data-img="assets/images/hero/main-2.jpg" data-label="湯の宿 · 온천장 · 내탕 · 기념품"></div>
+    <!-- 이후 : 비슷한 다른 실사 사진 (외관 → 내부 → 노천탕 → 대표 상품) -->
+    <div class="reel__shot" data-img="Dogo onsen honkan long exposure.jpg|Dogo Onsen 2017-04-05 (34099934150).jpg|Dogo-onsen Honkan.jpg" data-label="外観 · 불 밝힌 목조 온천장"></div>
+    <div class="reel__shot" data-img="Night in Ginzan Onsen town January 2022 A.jpg|Evening twilight in Ginzan Onsen town January 2022 A.jpg|Kinosaki Onsen at night.jpg" data-label="外観 · 온천 거리의 밤"></div>
+    <div class="reel__shot" data-img="The view from BANDAI in Japanese SENTO 番台からの眺め 01.jpg|Bath at the Edo-Tokyo Open Air Architectural Museum.jpg" data-label="内湯 · 타일 벽화 대욕장"></div>
     <div class="reel__shot" data-img="Inside Goshono-yu Kinosaki Onsen.jpg|Spa bath at Hoshi Ryokan.jpg|Asamushi Onsen -Yanagi no yu.jpg" data-label="内湯 · 김이 오르는 대욕장"></div>
+    <div class="reel__shot" data-img="assets/images/baths/night-rock.jpg" data-label="内湯 · 야간 암반탕"></div>
     <div class="reel__shot" data-img="Matsushima Onsen &quot;ICHINOBŌ&quot; Indoor-bath.JPG|Bath in kusatsu.jpg|Japanese Hot Spring Honzawa Onsen.JPG" data-label="内湯 · 창가의 실내탕"></div>
-    <div class="reel__shot" data-img="Tsurunoyu onsen rotenburo.JPG|Takanoyu Onsen Rotenburo 086.jpg|Tsurunoyu Onsen 06.jpg" data-label="露天 · 숲속 노천탕"></div>
-    <!-- 名物 : 대표 상품 -->
-    <div class="reel__shot reel__shot--grid" data-label="名物 · 온천 마을 대표 상품">
-      <div data-img="assets/images/souvenir/onsen-manju.jpg"><span>온천 만주</span></div>
-      <div data-img="assets/images/souvenir/konpeito.jpg"><span>별사탕</span></div>
-      <div data-img="assets/images/souvenir/masks-cups.jpg"><span>탈 · 湯 잔</span></div>
-      <div data-img="assets/images/souvenir/wooden-plaques.jpg"><span>나무 명패</span></div>
-      <div data-img="assets/images/souvenir/omamori-tea.jpg"><span>부적 · 차</span></div>
-    </div>
+    <div class="reel__shot" data-img="assets/images/baths/thatched-milky.jpg" data-label="露天 · 초가지붕 유백색 노천탕"></div>
+    <div class="reel__shot" data-img="assets/images/baths/autumn-private.jpg" data-label="露天 · 단풍 계곡 노천탕"></div>
+    <div class="reel__shot" data-img="assets/images/baths/snow-rotenburo.jpg" data-label="露天 · 설경 노천탕"></div>
+    <div class="reel__shot" data-img="assets/images/baths/private-stone.jpg" data-label="露天 · 객실 전용 노천탕"></div>
     <div class="reel__shot" data-img="Kinosaki Onsen onsen eggs ac (1).jpg|251128 Onsen Tamago at Kusatsu Onsen.jpg|Onsen egg facility Naruko Onsen 01.jpg" data-label="名物 · 원천에 삶은 온천 달걀"></div>
     <div class="reel__shot" data-img="Ote-manju, Wagashi, Okatayama.jpg" data-label="名物 · 팥소 가득 화과자 만주"></div>
     <div class="reel__shot" data-img="Kompeito konpeito.JPG|Bag of konpeito kompeito.jpg" data-label="名物 · 알록달록 별사탕"></div>
     <div class="reel__shot" data-img="Omamori Meiji Shrine.JPG|Omamori Heian Shrine 1.JPG|Omamori Kinkaku-ji.JPG" data-label="御守 · 건강을 비는 부적"></div>
-    <div class="reel__shot" data-img="assets/images/hero/souvenir-shop.jpg" data-label="お土産 · 기념품 가게"></div>
   </div>
   <canvas class="hero__steam" id="steam" aria-hidden="true"></canvas>
   <div class="hero__shade"></div>
 
-  <div class="hero__label" id="heroLabel">外観 · 붉은 다리 건너 목욕탕</div>
+  <div class="hero__label" id="heroLabel">湯の宿 · 목욕탕 외관과 내부</div>
 
   <div class="hero__copy">
     <h1>몸과 마음이 쉬어가는 온천<br>일본 여행은 “AI JACUZZI”</h1>
@@ -82,7 +78,7 @@
   <div class="hero__vertical">ゆのやど</div>
   <div class="hero__nav">
     <button class="hero__arrow" id="heroPrev" aria-label="이전 사진">‹</button>
-    <span class="hero__count"><b id="heroNow">01</b> / <span id="heroTotal">13</span></span>
+    <span class="hero__count"><b id="heroNow">01</b> / <span id="heroTotal">16</span></span>
     <button class="hero__arrow" id="heroNext" aria-label="다음 사진">›</button>
   </div>
   <div class="hero__dots" id="heroDots"></div>

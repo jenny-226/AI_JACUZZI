@@ -106,6 +106,14 @@ img { display: block; max-width: 100%; }
 .reel__shot.is-on { translate: 0 0; z-index: 1; animation: kenburns 7.5s linear forwards; }
 .reel__shot.is-out { z-index: 0; }
 @keyframes kenburns { from { scale: 1.12; } to { scale: 1; } }
+/* 메인 이미지 슬라이드 : 원본 전체를 보여주고 빈 곳은 같은 사진을 흐리게 채움 */
+.reel__shot--whole { background-size: 0 0 !important; }
+.reel__shot--whole::before, .reel__shot--whole::after {
+  content: ""; position: absolute; background-image: inherit; background-position: center; background-repeat: no-repeat;
+}
+.reel__shot--whole::before { inset: -60px; background-size: cover; filter: blur(28px) brightness(.55); }
+.reel__shot--whole::after { inset: 0; background-size: contain; }
+.reel__shot--whole.is-on { animation: none; }
 /* 대표 상품 모음 슬라이드 */
 .reel__shot--grid {
   background: #2a1d15; display: grid; gap: 4px; padding: 0;
