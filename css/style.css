@@ -310,6 +310,11 @@ figure[data-img] { position: relative; }
   font-family: var(--brush); font-size: clamp(48px, 7vw, 110px); color: rgba(255,235,210,.22); pointer-events: none;
 }
 .season.img-fallback::after, .location.img-fallback::after, .banner__img.img-fallback::after { content: none; }
+/* 사계절 탕 : 사진이 모두 안 열릴 때도 계절마다 다른 색으로 표시 */
+.season[data-season="spring"].img-fallback { background-image: linear-gradient(160deg, #f6c6d2 0%, #c86f8a 55%, #6d3346 100%) !important; }
+.season[data-season="summer"].img-fallback { background-image: linear-gradient(160deg, #b9e4d4 0%, #4f9e86 55%, #1f4a40 100%) !important; }
+.season[data-season="autumn"].img-fallback { background-image: linear-gradient(160deg, #f3c27d 0%, #c0632f 55%, #5c2a14 100%) !important; }
+.season[data-season="winter"].img-fallback { background-image: linear-gradient(160deg, #e8eef5 0%, #8ea5bd 55%, #34465a 100%) !important; }
 .hero--fallback .hero__reel { background: radial-gradient(ellipse at 40% 35%, #a0633a 0%, #4b2a1b 50%, #140c08 100%); }
 .hero--fallback .hero__label, .hero--fallback .hero__progress { display: none; }
 .reel__shot.img-loading, .reel__shot.img-fallback { animation: none; background: none !important; }

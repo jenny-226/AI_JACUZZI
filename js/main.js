@@ -113,10 +113,15 @@
     restart();
   };
 
+  // 아직 불러오는 중인 사진은 빈 화면이 되지 않도록 건너뜁니다
+  const isShowable = shot => !shot.classList.contains('img-loading');
   const step = dir => {
     if (!shots.length) return;
     const i = shots.indexOf(current);
-    go(shots[(i + dir + shots.length) % shots.length], dir);
+    for (let k = 1; k <= shots.length; k++) {
+      const next = shots[(i + dir * k + shots.length * k) % shots.length];
+      if (isShowable(next)) return go(next, dir);
+    }
   };
   const restart = () => { clearInterval(timer); timer = setInterval(() => step(1), SHOT_MS); };
 
@@ -134,8 +139,7 @@
   // 그리드 슬라이드(대표 상품 모음)는 자체 data-img 가 없으므로 항상 표시
   allShots.forEach(shot => (imageJobs.get(shot) || Promise.resolve(true)).then(ok => {
     if (ok) return;
-    const wasCurrent = shot === current;
-    if (wasCurrent) step(1);
+    if (shot === current) step(1);
     shots = shots.filter(s => s !== shot);
     shot.classList.remove('is-on');
     if (!shots.length) { hero.classList.add('hero--fallback'); clearInterval(timer); }
