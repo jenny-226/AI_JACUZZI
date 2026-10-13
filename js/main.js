@@ -1,52 +1,73 @@
 (() => {
   // ---------- 1. Wikimedia Commons 실사 사진 연결 ----------
-  // data-img 에 Commons 파일명을 적으면 해당 사진(가로 1600px 썸네일)을 불러옵니다.
+  // data-img 에 Commons 파일명을 적으면 해당 사진을 불러옵니다.
+  // "파일A|파일B" 처럼 적으면 A가 안 열릴 때 B를 대신 씁니다.
+  // 모두 실패하면 .img-fallback 디자인(따뜻한 그라데이션 + 湯)이 표시됩니다.
   const COMMONS = 'https://commons.wikimedia.org/wiki/';
-  const fileUrl = (name, width = 1600) =>
-    `${COMMONS}Special:FilePath/${encodeURIComponent(name.replace(/ /g, '_'))}?width=${width}`;
+  const encode = name => encodeURIComponent(name.replace(/ /g, '_'));
+  const fileUrl = (name, width) => `${COMMONS}Special:FilePath/${encode(name)}?width=${width}`;
+  const TIMEOUT_MS = 12000;
 
-  const used = new Set();
-  document.querySelectorAll('[data-img]').forEach(el => {
-    const name = el.dataset.img;
-    used.add(name);
-    const width = el.classList.contains('reel__shot') || el.matches('.banner__img, .location') ? 1920 : 1000;
-    el.style.backgroundImage = `url("${fileUrl(name, width)}")`;
+  const loadImage = url => new Promise((resolve, reject) => {
+    const img = new Image();
+    const timer = setTimeout(() => { img.src = ''; reject(new Error('timeout')); }, TIMEOUT_MS);
+    img.onload = () => { clearTimeout(timer); resolve(url); };
+    img.onerror = () => { clearTimeout(timer); reject(new Error('error')); };
+    img.src = url;
   });
 
-  // 푸터 사진 출처 (CC 라이선스 표기)
   const creditList = document.getElementById('creditList');
-  used.forEach(name => {
+  const credited = new Set();
+  const addCredit = name => {
+    if (credited.has(name)) return;
+    credited.add(name);
     const li = document.createElement('li');
     const a = document.createElement('a');
-    a.href = `${COMMONS}File:${encodeURIComponent(name.replace(/ /g, '_'))}`;
+    a.href = `${COMMONS}File:${encode(name)}`;
     a.target = '_blank';
     a.rel = 'noopener';
     a.textContent = name;
     li.append(a);
     creditList.append(li);
-  });
+  };
 
-  // ---------- 2. 히어로 : 외관 → 내부 영상 ----------
+  const applyImage = async el => {
+    const names = el.dataset.img.split('|').map(n => n.trim()).filter(Boolean);
+    const width = el.matches('.reel__shot, .banner__img, .location') ? 1920 : 1000;
+    el.classList.add('img-loading');
+    for (const name of names) {
+      try {
+        const url = await loadImage(fileUrl(name, width));
+        el.style.backgroundImage = `url("${url}")`;
+        el.classList.remove('img-loading');
+        el.classList.add('img-ready');
+        addCredit(name);
+        return true;
+      } catch (e) { /* 다음 후보 시도 */ }
+    }
+    el.classList.remove('img-loading');
+    el.classList.add('img-fallback');
+    return false;
+  };
+
+  const imageJobs = new Map();
+  document.querySelectorAll('[data-img]').forEach(el => imageJobs.set(el, applyImage(el)));
+
+  // ---------- 2. 히어로 : 외관 → 내부 영상 (HTML·CSS·JS) ----------
   const hero = document.querySelector('.hero');
-  const shots = [...document.querySelectorAll('.reel__shot')];
+  const allShots = [...document.querySelectorAll('.reel__shot')];
   const label = document.getElementById('heroLabel');
   const bar = document.getElementById('heroBar');
   const SHOT_MS = 6000;
+  let shots = allShots.slice();   // 불러오기에 실패한 컷은 순서에서 빠집니다
   let idx = 0;
-  let reelTimer = null;
 
-  const showShot = i => {
-    shots.forEach((s, k) => {
-      if (k === i) {
-        s.classList.remove('is-on');
-        void s.offsetWidth; // Ken Burns 애니메이션 재시작
-        s.classList.add('is-on');
-      } else {
-        s.classList.remove('is-on');
-      }
-    });
+  const showShot = shot => {
+    allShots.forEach(s => s.classList.remove('is-on'));
+    void shot.offsetWidth; // Ken Burns 애니메이션 재시작
+    shot.classList.add('is-on');
     label.style.opacity = 0;
-    setTimeout(() => { label.textContent = shots[i].dataset.label; label.style.opacity = 1; }, 400);
+    setTimeout(() => { label.textContent = shot.dataset.label; label.style.opacity = 1; }, 400);
     bar.style.transition = 'none';
     bar.style.width = '0';
     requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -55,13 +76,19 @@
     }));
   };
 
-  const startReel = () => {
-    if (reelTimer) return;
-    showShot(idx);
-    reelTimer = setInterval(() => { idx = (idx + 1) % shots.length; showShot(idx); }, SHOT_MS);
-  };
+  allShots.forEach(shot => imageJobs.get(shot).then(ok => {
+    if (ok) return;
+    shots = shots.filter(s => s !== shot);
+    shot.classList.remove('is-on');
+    if (!shots.length) hero.classList.add('hero--fallback');
+  }));
 
-  startReel();
+  showShot(shots[0]);
+  setInterval(() => {
+    if (!shots.length) return;
+    idx = (idx + 1) % shots.length;
+    showShot(shots[idx]);
+  }, SHOT_MS);
 
   // ---------- 3. 온천 김(steam) 캔버스 ----------
   const canvas = document.getElementById('steam');
