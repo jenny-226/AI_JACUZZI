@@ -225,8 +225,40 @@
     if (d.open) items.forEach(o => { if (o !== d) o.open = false; });
   }));
 
+  // ---------- 7. 탕 선택 옵션 : 공용 / 개인 필터 ----------
+  const optionCards = [...document.querySelectorAll('.option')];
+  const pickedBath = document.getElementById('pickedBath');
+  const pickedType = document.getElementById('pickedType');
+  const TYPE_LABEL = { shared: '공용', private: '개인' };
+  const selectedCard = () => optionCards.find(c => c.querySelector('input').checked);
+  const updatePicked = () => {
+    const card = selectedCard();
+    pickedBath.textContent = card ? card.querySelector('input').value : '없음';
+    pickedType.textContent = card ? `(${TYPE_LABEL[card.dataset.type]})` : '';
+  };
+  optionCards.forEach(c => c.querySelector('input').addEventListener('change', updatePicked));
+
+  document.querySelectorAll('.options__tabs button').forEach(btn => btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.options__tabs button').forEach(b => b.classList.toggle('is-on', b === btn));
+    optionCards.forEach(c => {
+      c.classList.toggle('is-hidden', filter !== 'all' && c.dataset.type !== filter);
+      c.classList.add('is-in'); // 필터로 새로 보이는 카드도 바로 표시
+    });
+    // 선택된 탕이 숨겨지면 보이는 첫 번째 탕을 선택
+    const card = selectedCard();
+    if (!card || card.classList.contains('is-hidden')) {
+      const first = optionCards.find(c => !c.classList.contains('is-hidden'));
+      if (first) first.querySelector('input').checked = true;
+    }
+    updatePicked();
+  }));
+  updatePicked();
+
   document.getElementById('agreeBtn').addEventListener('click', e => {
     e.preventDefault();
-    alert('안내사항에 동의하셨습니다. 예약 페이지로 이동합니다.');
+    const card = selectedCard();
+    const bath = card ? `${card.querySelector('input').value} (${TYPE_LABEL[card.dataset.type]})` : '선택한 탕';
+    alert(`안내사항에 동의하셨습니다.\n「${bath}」 예약 페이지로 이동합니다.`);
   });
 })();

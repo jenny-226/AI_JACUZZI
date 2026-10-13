@@ -12,7 +12,7 @@
 | 4가지 특징 | [湯] 실내탕 · [食べ物] 온천 달걀 · [お土産] 기념품 · [御守] 부적 |
 | 02_ BATH | 사계절 탕 [春][夏][秋][冬] |
 | 03_ SOUVENIR | 온천 마을 기념품 갤러리 |
-| 04_ RESERVATION | 이용 안내 아코디언 + AGREE 버튼 |
+| 04_ RESERVATION | 탕 선택 옵션 12종 (전체 / 공용 / 개인 필터) + 이용 안내 아코디언 + AGREE 버튼 |
 | 05_ LOCATION | 어두운 배경 오시는 길 |
 | FOOTER | 사업자 정보, 사진 출처 |
 
@@ -27,7 +27,8 @@ assets/images/
 ├── hero/souvenir-shop.jpg       기념품 진열대
 ├── exterior-night.jpg           야경 외관
 ├── interior-mural.jpg           타일 벽화 내탕
-└── souvenir/                    기념품 갤러리 5장
+├── souvenir/                    기념품 갤러리 5장
+└── baths/                       사계절 탕 · 탕 선택 옵션 사진 5장
 ```
 내 사진을 추가·교체하려면 `assets/images/`에 파일을 넣고 HTML의 `data-img`에 `assets/images/파일명.jpg`를 적으면 됩니다.
 

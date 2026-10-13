@@ -152,16 +152,16 @@
     <h2 class="title">계절을 담은 네 개의 탕<br><small>사계절 다른 풍경을 보여드리는 탕을 소개합니다.</small></h2>
   </div>
   <div class="bath__grid">
-    <a class="season reveal" href="#reservation" data-season="spring" data-img="Gorakadan Onsen Rotenburo 1.jpg|Yumotokan-Ogoto onsen Rotenburo.jpg|Yumotokan-Ogoto onsen Rotenburo 露天湯幻逍遥-Yugenshoyo 3.jpg">
-      <strong>[春]</strong><span>봄바람 부는 노천탕</span>
+    <a class="season reveal" href="#reservation" data-season="spring" data-img="assets/images/baths/rooftop-view.jpg">
+      <strong>[春]</strong><span>봄 하늘 아래 전망 노천탕</span>
     </a>
-    <a class="season reveal" href="#reservation" data-season="summer" data-img="W(2010)HINOKI-SOUKEN O-bath.jpg|Outdoor bath, Hyōtan Onsen, Beppu - Nov 18, 2005.jpg|Takaiso no yu, -Atagawa Onsen 01.jpg">
-      <strong>[夏]</strong><span>더위를 씻어주는 히노키탕</span>
+    <a class="season reveal" href="#reservation" data-season="summer" data-img="assets/images/baths/thatched-milky.jpg">
+      <strong>[夏]</strong><span>숲 그늘의 유백색 노천탕</span>
     </a>
-    <a class="season reveal" href="#reservation" data-season="autumn" data-img="Kurokawa-onsen.jpg|Takanoyu Onsen Rotenburo 086.jpg|Tsurunoyu Onsen 02.jpg">
-      <strong>[秋]</strong><span>단풍을 바라보는 노천탕</span>
+    <a class="season reveal" href="#reservation" data-season="autumn" data-img="assets/images/baths/autumn-private.jpg">
+      <strong>[秋]</strong><span>단풍 계곡의 노천탕</span>
     </a>
-    <a class="season reveal" href="#reservation" data-season="winter" data-img="Magoroku Onsen Outdoor Bath Winter.jpg|Tsurunoyu onsen rotenburo2.JPG|Takanoyu Onsen Rotenburo 003.JPG">
+    <a class="season reveal" href="#reservation" data-season="winter" data-img="assets/images/baths/snow-rotenburo.jpg">
       <strong>[冬]</strong><span>첫눈처럼 포근한 설경탕</span>
     </a>
   </div>
@@ -192,6 +192,104 @@
   <div class="reserve__head reveal">
     <p class="eyebrow">04_ RESERVATION</p>
     <h2 class="title">이용 안내<br>탕별 예약</h2>
+  </div>
+
+  <div class="options">
+    <div class="options__head reveal">
+      <p class="eyebrow">BATH OPTIONS</p>
+      <div class="options__tabs" role="tablist">
+        <button type="button" class="is-on" data-filter="all">전체</button>
+        <button type="button" data-filter="shared">공용 온천</button>
+        <button type="button" data-filter="private">개인 온천</button>
+      </div>
+    </div>
+    <div class="options__grid" id="optionGrid">
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="전망 노천탕" checked>
+        <figure data-img="assets/images/baths/rooftop-view.jpg"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>전망 노천탕</strong>
+        <p>산과 바다가 한눈에 보이는 옥상 노천탕</p>
+        <em>공용 · 15:00–23:00</em>
+      </label>
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="초가지붕 유백색 노천탕">
+        <figure data-img="assets/images/baths/thatched-milky.jpg"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>초가지붕 유백색 노천탕</strong>
+        <p>숲속 초가지붕 아래 푸른빛 유백색 원천</p>
+        <em>공용 · 06:00–24:00</em>
+      </label>
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="설경 노천탕">
+        <figure data-img="assets/images/baths/snow-rotenburo.jpg"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>설경 노천탕</strong>
+        <p>눈 덮인 산자락에서 즐기는 겨울 온천</p>
+        <em>공용 · 겨울 한정</em>
+      </label>
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="타일 벽화 대욕장">
+        <figure data-img="The view from BANDAI in Japanese SENTO 番台からの眺め 01.jpg|Bath at the Edo-Tokyo Open Air Architectural Museum.jpg|assets/images/interior-mural.jpg"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>타일 벽화 대욕장</strong>
+        <p>후지산 타일 벽화가 있는 전통 대욕장</p>
+        <em>공용 · 06:00–24:00</em>
+      </label>
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="바다 노천탕">
+        <figure data-img="Mizunashi Kaihin onsen (hot spring bath), Hakodate, Japan.jpg|Mizunashi Kaihin Onsen (hot spring bath) in Hakodate, Japan.jpg"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>바다 노천탕</strong>
+        <p>썰물 때만 나타나는 바닷가 바위 노천탕</p>
+        <em>공용 · 물때에 따라 운영</em>
+      </label>
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="모래찜질 온천">
+        <figure data-img="Ibusuki-Sand-Bath.JPG"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>모래찜질 온천</strong>
+        <p>따뜻한 온천 모래에 몸을 묻는 이색 체험</p>
+        <em>공용 · 1회 20분</em>
+      </label>
+      <label class="option reveal" data-type="shared">
+        <input type="radio" name="bath" value="족탕">
+        <figure data-img="Ashiyu (Foot Bath).jpg|Aizanke spa ashiyu.JPG"><span class="option__badge option__badge--shared">공용</span></figure>
+        <strong>족탕</strong>
+        <p>가볍게 발만 담그는 무료 족욕 쉼터</p>
+        <em>공용 · 무료</em>
+      </label>
+      <label class="option reveal" data-type="private">
+        <input type="radio" name="bath" value="단풍 계곡 전세 노천탕">
+        <figure data-img="assets/images/baths/autumn-private.jpg"><span class="option__badge option__badge--private">개인</span></figure>
+        <strong>단풍 계곡 전세 노천탕</strong>
+        <p>계곡 물소리를 들으며 둘만 즐기는 나무 욕조</p>
+        <em>개인 · 50분 · 2~4인</em>
+      </label>
+      <label class="option reveal" data-type="private">
+        <input type="radio" name="bath" value="야간 암반 전세탕">
+        <figure data-img="assets/images/baths/night-rock.jpg"><span class="option__badge option__badge--private">개인</span></figure>
+        <strong>야간 암반 전세탕</strong>
+        <p>은은한 조명 아래 김이 오르는 바위탕</p>
+        <em>개인 · 50분 · 2~4인</em>
+      </label>
+      <label class="option reveal" data-type="private">
+        <input type="radio" name="bath" value="히노키 가족탕">
+        <figure data-img="W(2010)HINOKI-SOUKEN O-bath.jpg|Japanese Hot Spring Honzawa Onsen.JPG"><span class="option__badge option__badge--private">개인</span></figure>
+        <strong>히노키 가족탕</strong>
+        <p>은은한 편백 향이 퍼지는 가족 전용 욕조</p>
+        <em>개인 · 50분 · 최대 5인</em>
+      </label>
+      <label class="option reveal" data-type="private">
+        <input type="radio" name="bath" value="고에몬부로 철솥탕">
+        <figure data-img="2026-03-26 Traditional Goemonburo bathtub in Japan (五右衛門風呂の浴室)DSCF5298.jpg"><span class="option__badge option__badge--private">개인</span></figure>
+        <strong>고에몬부로 철솥탕</strong>
+        <p>장작으로 데운 무쇠 솥에 들어가는 전통 목욕</p>
+        <em>개인 · 40분 · 1~2인</em>
+      </label>
+      <label class="option reveal" data-type="private">
+        <input type="radio" name="bath" value="객실 전용 노천탕">
+        <figure data-img="Gorakadan Onsen Rotenburo 1.jpg|Yumotokan-Ogoto onsen Rotenburo.jpg"><span class="option__badge option__badge--private">개인</span></figure>
+        <strong>객실 전용 노천탕</strong>
+        <p>객실에 딸린 프라이빗 노천탕</p>
+        <em>개인 · 숙박 고객 전용</em>
+      </label>
+    </div>
+    <p class="options__picked">선택한 탕 : <b id="pickedBath">전망 노천탕</b> <span id="pickedType">(공용)</span></p>
   </div>
   <div class="reserve__body">
     <div class="reserve__info reveal">
