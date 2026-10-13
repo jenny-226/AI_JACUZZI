@@ -21,9 +21,15 @@ HTML의 `data-img="파일명"`에 Commons 파일명을 적으면 `js/main.js`가
 사진을 바꾸려면 `data-img` 값만 다른 Commons 파일명으로 바꾸면 됩니다.
 
 ## 히어로 영상
-- `assets/hero.mp4`가 있으면 그 영상을 자동 재생합니다.
-- 없으면 외관 2컷 → 내부 3컷을 줌·크로스페이드로 이어 보여주는 시네마틱 시퀀스가 재생됩니다.
-- `bash tools/make-hero-video.sh`를 실행하면 같은 실사 사진으로 `assets/hero.mp4`를 만들어 줍니다 (ffmpeg, curl 필요).
+별도 동영상 파일 없이 **HTML·CSS·JavaScript만으로** 재생됩니다.
+외관 2컷 → 내부 3컷 실사 사진이 CSS 애니메이션(천천히 확대·이동 + 크로스페이드)으로 이어지고,
+JavaScript `<canvas>`로 온천 김이 피어오르는 효과를 그립니다.
 
 ## 실행
-정적 사이트라 `index.html`을 브라우저로 열면 됩니다.
+설치나 빌드 없이 `index.html`을 브라우저(Chrome, Edge 등)로 열면 바로 실행됩니다.
+
+```
+index.html      ← 페이지 구조 (HTML)
+css/style.css   ← 디자인·색상·애니메이션 (CSS)
+js/main.js      ← 영상 시퀀스·김 효과·메뉴·아코디언 (JavaScript)
+```

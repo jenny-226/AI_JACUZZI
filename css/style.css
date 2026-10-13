@@ -96,10 +96,7 @@ img { display: block; max-width: 100%; }
 
 /* ===== HERO ===== */
 .hero { position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: #111; color: #fff; }
-.hero__video, .hero__reel, .hero__steam, .hero__shade { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero__video { object-fit: cover; opacity: 0; transition: opacity 1s; z-index: 1; }
-.hero.has-video .hero__video { opacity: 1; }
-.hero.has-video .hero__reel, .hero.has-video .hero__label, .hero.has-video .hero__progress { display: none; }
+.hero__reel, .hero__steam, .hero__shade { position: absolute; inset: 0; width: 100%; height: 100%; }
 .reel__shot {
   position: absolute; inset: -4%;
   opacity: 0; transform: scale(1.12);

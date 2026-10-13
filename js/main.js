@@ -28,7 +28,6 @@
 
   // ---------- 2. 히어로 : 외관 → 내부 영상 ----------
   const hero = document.querySelector('.hero');
-  const video = document.getElementById('heroVideo');
   const shots = [...document.querySelectorAll('.reel__shot')];
   const label = document.getElementById('heroLabel');
   const bar = document.getElementById('heroBar');
@@ -62,13 +61,6 @@
     reelTimer = setInterval(() => { idx = (idx + 1) % shots.length; showShot(idx); }, SHOT_MS);
   };
 
-  // 실제 영상(assets/hero.mp4)이 있으면 영상 재생, 없으면 시네마틱 시퀀스
-  video.addEventListener('canplay', () => {
-    video.play().then(() => {
-      hero.classList.add('has-video');
-      clearInterval(reelTimer);
-    }).catch(() => {});
-  }, { once: true });
   startReel();
 
   // ---------- 3. 온천 김(steam) 캔버스 ----------
