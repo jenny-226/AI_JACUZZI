@@ -131,7 +131,8 @@
     touchX = null;
   });
 
-  allShots.forEach(shot => imageJobs.get(shot).then(ok => {
+  // 그리드 슬라이드(대표 상품 모음)는 자체 data-img 가 없으므로 항상 표시
+  allShots.forEach(shot => (imageJobs.get(shot) || Promise.resolve(true)).then(ok => {
     if (ok) return;
     const wasCurrent = shot === current;
     if (wasCurrent) step(1);

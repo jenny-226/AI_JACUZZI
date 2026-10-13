@@ -106,6 +106,20 @@ img { display: block; max-width: 100%; }
 .reel__shot.is-on { translate: 0 0; z-index: 1; animation: kenburns 7.5s linear forwards; }
 .reel__shot.is-out { z-index: 0; }
 @keyframes kenburns { from { scale: 1.12; } to { scale: 1; } }
+/* 대표 상품 모음 슬라이드 */
+.reel__shot--grid {
+  background: #2a1d15; display: grid; gap: 4px; padding: 0;
+  grid-template-columns: 1fr 1fr 1.25fr; grid-template-rows: 1fr 1fr;
+}
+.reel__shot--grid.is-on { animation: none; }
+.reel__shot--grid > div { position: relative; overflow: hidden; }
+.reel__shot--grid > div:nth-child(3) { grid-row: span 2; }
+.reel__shot--grid > div span { display: none; } /* 상품명은 하단 라벨로 표시 */
+.reel__shot--grid.is-on > div { animation: kenburns 7.5s linear forwards; }
+@media (max-width: 640px) {
+  .reel__shot--grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); }
+  .reel__shot--grid > div:nth-child(3) { grid-row: auto; }
+}
 .hero__steam { z-index: 2; pointer-events: none; mix-blend-mode: screen; }
 .hero__shade { z-index: 3; background: linear-gradient(90deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.05) 40%, rgba(0,0,0,.55) 100%), linear-gradient(0deg, rgba(0,0,0,.35), transparent 35%); }
 .hero__copy {
