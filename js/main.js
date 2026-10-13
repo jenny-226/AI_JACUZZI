@@ -29,6 +29,7 @@
     a.textContent = name;
     li.append(a);
     creditList.append(li);
+    document.getElementById('credits').hidden = false; // 사용한 Commons 사진이 있을 때만 표시
   };
 
   // "assets/..." 로 시작하면 리포지토리 안의 내 이미지, 아니면 Commons 파일명
@@ -50,6 +51,16 @@
     }
     el.classList.remove('img-loading');
     el.classList.add('img-fallback');
+    // 사진이 없는 탕 옵션은 목록에서 뺍니다
+    const card = el.closest('.option');
+    if (card) {
+      card.remove();
+      // 선택돼 있던 탕이 빠지면 남은 첫 번째 탕을 선택
+      if (!document.querySelector('.option input:checked')) {
+        const next = document.querySelector('.option:not(.is-hidden) input');
+        if (next) { next.checked = true; next.dispatchEvent(new Event('change')); }
+      }
+    }
     return false;
   };
 
@@ -194,7 +205,12 @@
 
   // ---------- 4. 헤더 / 메뉴 ----------
   const header = document.getElementById('header');
-  const onScroll = () => header.classList.toggle('is-solid', window.scrollY > hero.clientHeight - 80);
+  const toTop = document.getElementById('toTop');
+  const onScroll = () => {
+    header.classList.toggle('is-solid', window.scrollY > hero.clientHeight - 80);
+    toTop.classList.toggle('is-on', window.scrollY > 400);
+  };
+  toTop.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -226,29 +242,29 @@
   }));
 
   // ---------- 7. 탕 선택 옵션 : 공용 / 개인 필터 ----------
-  const optionCards = [...document.querySelectorAll('.option')];
+  const getCards = () => [...document.querySelectorAll('.option')];
   const pickedBath = document.getElementById('pickedBath');
   const pickedType = document.getElementById('pickedType');
   const TYPE_LABEL = { shared: '공용', private: '개인' };
-  const selectedCard = () => optionCards.find(c => c.querySelector('input').checked);
+  const selectedCard = () => getCards().find(c => c.querySelector('input').checked);
   const updatePicked = () => {
     const card = selectedCard();
     pickedBath.textContent = card ? card.querySelector('input').value : '없음';
     pickedType.textContent = card ? `(${TYPE_LABEL[card.dataset.type]})` : '';
   };
-  optionCards.forEach(c => c.querySelector('input').addEventListener('change', updatePicked));
+  getCards().forEach(c => c.querySelector('input').addEventListener('change', updatePicked));
 
   document.querySelectorAll('.options__tabs button').forEach(btn => btn.addEventListener('click', () => {
     const filter = btn.dataset.filter;
     document.querySelectorAll('.options__tabs button').forEach(b => b.classList.toggle('is-on', b === btn));
-    optionCards.forEach(c => {
+    getCards().forEach(c => {
       c.classList.toggle('is-hidden', filter !== 'all' && c.dataset.type !== filter);
       c.classList.add('is-in'); // 필터로 새로 보이는 카드도 바로 표시
     });
     // 선택된 탕이 숨겨지면 보이는 첫 번째 탕을 선택
     const card = selectedCard();
     if (!card || card.classList.contains('is-hidden')) {
-      const first = optionCards.find(c => !c.classList.contains('is-hidden'));
+      const first = getCards().find(c => !c.classList.contains('is-hidden'));
       if (first) first.querySelector('input').checked = true;
     }
     updatePicked();
