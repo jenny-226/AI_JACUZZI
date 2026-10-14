@@ -248,10 +248,6 @@ img { display: block; max-width: 100%; }
 .footer__links a:hover { color: var(--accent); }
 .footer__col { list-style: none; font-family: var(--sans); letter-spacing: .02em; line-height: 2.1; }
 .footer__btn { grid-column: 2 / 4; min-width: 0; width: 100%; height: 42px; }
-.credits { max-width: 1320px; margin: 40px auto 0; border-top: 1px solid var(--line); padding-top: 16px; font-size: 10.5px; color: #999; }
-.credits summary { cursor: pointer; font-family: var(--en); letter-spacing: .15em; }
-.credits ul { list-style: none; margin-top: 10px; columns: 2; column-gap: 40px; }
-.credits a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* ===== 오시는 길 세로 로고 ===== */
 .location__vertical {
@@ -307,14 +303,13 @@ img { display: block; max-width: 100%; }
 @media (max-width: 640px) {
   .hero__copy { right: 80px; left: var(--gutter); max-width: none; top: auto; bottom: 170px; transform: none; }
   .hero__label { bottom: 118px; font-size: 11px; }
-  .hero__dots { left: auto; right: 90px; transform: none; bottom: 84px; }
+  .hero__dots { display: none; } /* 모바일은 화살표·번호로 넘김 (점이 화살표를 가리지 않도록) */
   .hero__copy p br { display: none; }
   .hero__vertical { top: 110px; transform: none; font-size: 36px; }
   .hero__logo { display: none; }
   .about__photos { grid-template-columns: 1fr 1fr; }
   .about__photos figure:last-child { grid-column: 1 / -1; aspect-ratio: 1.6; }
   .footer__inner { grid-template-columns: 1fr; }
-  .credits ul { columns: 1; }
   .btn-line, .btn-fill { min-width: 0; width: 100%; }
   .floating { right: 12px; bottom: 16px; gap: 8px; }
   .fab { width: 56px; height: 56px; font-size: 9px; }

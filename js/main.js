@@ -1,11 +1,7 @@
 (() => {
-  // ---------- 1. Wikimedia Commons 실사 사진 연결 ----------
-  // data-img 에 Commons 파일명을 적으면 해당 사진을 불러옵니다.
-  // "파일A|파일B" 처럼 적으면 A가 안 열릴 때 B를 대신 씁니다.
-  // 모두 실패하면 .img-fallback 디자인(따뜻한 그라데이션 + 湯)이 표시됩니다.
-  const COMMONS = 'https://commons.wikimedia.org/wiki/';
-  const encode = name => encodeURIComponent(name.replace(/ /g, '_'));
-  const fileUrl = (name, width) => `${COMMONS}Special:FilePath/${encode(name)}?width=${width}`;
+  // ---------- 1. 사진 연결 ----------
+  // data-img 에 assets/images/... 경로를 적으면 해당 사진을 배경으로 불러옵니다.
+  // "사진A.jpg|사진B.jpg" 처럼 적으면 A가 안 열릴 때 B를 씁니다.
   const TIMEOUT_MS = 12000;
 
   const loadImage = url => new Promise((resolve, reject) => {
@@ -16,36 +12,15 @@
     img.src = url;
   });
 
-  const creditList = document.getElementById('creditList');
-  const credited = new Set();
-  const addCredit = name => {
-    if (credited.has(name)) return;
-    credited.add(name);
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = `${COMMONS}File:${encode(name)}`;
-    a.target = '_blank';
-    a.rel = 'noopener';
-    a.textContent = name;
-    li.append(a);
-    creditList.append(li);
-    document.getElementById('credits').hidden = false; // 사용한 Commons 사진이 있을 때만 표시
-  };
-
-  // "assets/..." 로 시작하면 리포지토리 안의 내 이미지, 아니면 Commons 파일명
-  const isLocal = name => name.startsWith('assets/');
-
   const applyImage = async el => {
     const names = el.dataset.img.split('|').map(n => n.trim()).filter(Boolean);
-    const width = el.matches('.reel__shot, .banner__img, .location') ? 1920 : 1000;
     el.classList.add('img-loading');
     for (const name of names) {
       try {
-        const url = await loadImage(isLocal(name) ? encodeURI(name) : fileUrl(name, width));
+        const url = await loadImage(encodeURI(name));
         el.style.backgroundImage = `url("${url}")`;
         el.classList.remove('img-loading');
         el.classList.add('img-ready');
-        if (!isLocal(name)) addCredit(name);
         return true;
       } catch (e) { /* 다음 후보 시도 */ }
     }
