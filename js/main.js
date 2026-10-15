@@ -1,6 +1,6 @@
 (() => {
   // ---------- 1. 사진 연결 ----------
-  // data-img 에 assets/images/... 경로(내 사진) 또는 Wikimedia Commons 파일명을 적습니다.
+  // data-img 에 assets/images/... 경로(내 사진), https:// 이미지 주소, 또는 Wikimedia Commons 파일명을 적습니다.
   // "사진A|사진B" 처럼 적으면 A가 안 열릴 때 B를 씁니다. 모두 실패하면 .img-fallback 화면이 나옵니다.
   const TIMEOUT_MS = 12000;
   const isLocal = name => name.startsWith('assets/');
@@ -21,7 +21,7 @@
     el.classList.add('img-loading');
     for (const name of names) {
       try {
-        const url = await loadImage(isLocal(name) ? encodeURI(name) : commonsUrl(name));
+        const url = await loadImage(isLocal(name) ? encodeURI(name) : /^https?:\/\//.test(name) ? name : commonsUrl(name));
         el.style.backgroundImage = `url("${url}")`;
         el.classList.remove('img-loading');
         el.classList.add('img-ready');
@@ -194,7 +194,7 @@
     if (e.target.tagName === 'A') { nav.classList.remove('is-open'); burger.classList.remove('is-open'); }
   });
 
-  const validPages = ['home', 'about', 'reservation', 'shop'];
+  const validPages = ['home', 'about', 'reservation', 'shop', 'booking'];
   const showPage = (page, push = true) => {
     if (!validPages.includes(page)) page = 'home';
     document.querySelectorAll('.page-panel').forEach(panel => {
@@ -231,22 +231,22 @@
   }));
 
   // ---------- 7. 객실 · 온천 데이터 ----------
-  // 객실 사진은 Wikimedia Commons 실사 사진(사람 없는 객실 내부)입니다.
+  // 객실 사진 : 온천장 분위기의 초현실 실사풍 생성 이미지 → 열리지 않으면 Wikimedia Commons 실사 객실 사진
   const B = 'assets/images/baths/';
   const A = 'assets/images/';
   const ITEMS = [
     { id: 'room-moon', type: 'hotel', name: '달빛 다다미 객실',
-      img: 'Kasumi room - Takahan ryokan - Gala Yuzawa, Niigata Prefecture, Japan - DSC09391.JPG|Ryokan Matsumae in Nara.jpg|Interior of a ryokan room (2999708441).jpg',
+      img: 'https://d8j0ntlcm91z4.cloudfront.net/user_3KZaUdp0PRiPLGJfs52RrtjpU30/hf_20261015_033228_709eeae8-5a0d-4c07-90e8-e2f1c29130e7.png|Kasumi room - Takahan ryokan - Gala Yuzawa, Niigata Prefecture, Japan - DSC09391.JPG|Ryokan Matsumae in Nara.jpg|Interior of a ryokan room (2999708441).jpg',
       desc: '등불 하나와 이불 두 채, 창밖으로 밤바다를 달리는 열차가 보이는 달과 용신을 위한 고요한 다다미 객실입니다.',
       kind: '다다미 객실', size: '10첩', base: 2, max: 2, price: 32000, unit: '1박',
       feats: ['이불 2채 · 좌탁 · 다과', '도코노마 족자와 꽃', '밤바다 전망 창'] },
     { id: 'room-garden', type: 'hotel', name: '정원 노천탕 객실',
-      img: 'Tawaraya Ryokan, Kyoto 02.jpg|Tawaraya Ryokan, Kyoto 03.jpg|Ryokan roomIMG 0819C.JPG',
+      img: 'https://d8j0ntlcm91z4.cloudfront.net/user_3KZaUdp0PRiPLGJfs52RrtjpU30/hf_20261015_033227_f60731e9-b095-42fc-8d3f-a7c5ed58c9dc.png|Tawaraya Ryokan, Kyoto 02.jpg|Tawaraya Ryokan, Kyoto 03.jpg|Ryokan roomIMG 0819C.JPG',
       desc: '전용 석탕과 작은 정원을 갖춘 귀빈실로, 정원을 바라보며 조용히 쉬어가실 수 있습니다.',
       kind: '귀빈실', size: '14첩', base: 2, max: 4, price: 48000, unit: '1박',
       feats: ['전용 석탕', '안뜰 정원', '다도 세트'] },
     { id: 'room-hall', type: 'hotel', name: '대신령 연회 객실',
-      img: 'Fukiage Palace - interior 01.jpg|Fukiage Palace - interior 02.jpg|Tawaraya Ryokan, Kyoto 01.jpg',
+      img: 'https://d8j0ntlcm91z4.cloudfront.net/user_3KZaUdp0PRiPLGJfs52RrtjpU30/hf_20261015_033228_6e525e06-e60c-4890-8fcf-a92d8745c93a.png|Fukiage Palace - interior 01.jpg|Fukiage Palace - interior 02.jpg|Tawaraya Ryokan, Kyoto 01.jpg',
       desc: '금빛 장지문과 높은 격자 천장 아래, 큰 몸집의 신과 수행단이 함께 머물며 연회를 여는 넓은 객실입니다.',
       kind: '연회 객실', size: '60첩', base: 6, max: 8, price: 72000, unit: '1박',
       feats: ['연회상 차림 가능', '이불 8채 준비', '바다 열차 전망 툇마루'] },
@@ -490,9 +490,8 @@
   };
   book.querySelectorAll('.book__mode button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
 
-  let lastFocus = null;
-  const openBook = (itemId) => {
-    lastFocus = document.activeElement;
+  // 예약 화면 준비 (itemId 가 있으면 그 객실·온천을 미리 선택)
+  const resetBook = itemId => {
     const it = itemId ? byId(itemId) : null;
     state.picks = {}; state.extras = {};
     if (it) state.picks[it.id] = true;
@@ -501,20 +500,19 @@
     form.hidden = false; done.hidden = true;
     setMode(it && it.type !== 'hotel' ? 'bath' : 'room');
     renderCal();
-    book.hidden = false;
-    document.body.classList.add('is-locked');
-    requestAnimationFrame(() => book.classList.add('is-open'));
-    book.querySelector('.book__panel').scrollTop = 0;
-    book.querySelector('.book__x').focus();
   };
-  const closeBook = () => {
-    book.classList.remove('is-open');
-    document.body.classList.remove('is-locked');
-    setTimeout(() => { book.hidden = true; }, 250);
-    if (lastFocus) lastFocus.focus();
+  // 예약하기 → 예약 탭(페이지)으로 전환
+  const openBook = itemId => {
+    resetBook(itemId);
+    showPage('booking');
+    book.classList.remove('is-open'); void book.offsetWidth; book.classList.add('is-open');
   };
-  book.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeBook(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !book.hidden) closeBook(); });
+  const closeBook = () => showPage('reservation');
+  book.addEventListener('click', e => {
+    const c = e.target.closest('[data-close]');
+    if (c) { e.preventDefault(); closeBook(); }
+  });
+  resetBook(null);
 
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -537,7 +535,7 @@
     ];
     document.getElementById('doneSummary').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
     form.hidden = true; done.hidden = false;
-    book.querySelector('.book__panel').scrollTop = 0;
+    window.scrollTo({ top: 0 });
   });
 
   // 예약 창을 여는 버튼들

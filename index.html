@@ -256,43 +256,10 @@
 
 <section class="page-panel page-screen shop-page section" id="shop" data-view="shop"><header class="shop-head"><p class="eyebrow">GIFTS FOR THE GODS</p><h1 class="title">신들의 상점</h1><p>인간용 기념품 대신, 목욕을 마친 신과 정령을 위한 공물·약탕 패·부적을 준비했습니다.</p><div class="shop-cart">담은 공물 <b id="shopCount">0</b>개 · <strong id="shopTotal">¥0</strong></div></header><div class="shop-grid"><article data-price="1600" data-name="약탕 나무패"><img src="assets/images/souvenir/wooden-plaques.jpg" alt="신들을 위한 약탕 나무패"><small>薬湯札 · 산신 추천</small><h2>약탕 나무패</h2><p>탕지기에게 원하는 약초 배합을 전하는 신령 전용 표찰.</p><button class="buy-button">공물함에 담기 · ¥1,600</button></article><article data-price="1200" data-name="신찬 만주"><img src="assets/images/souvenir/onsen-manju.jpg" alt="신찬 만주"><small>神饌 · 인기 공물</small><h2>신찬 만주</h2><p>온천 증기로 쪄내어 목욕 뒤 허기를 달래는 팥 만주.</p><button class="buy-button">공물함에 담기 · ¥1,200</button></article><article data-price="900" data-name="정령의 별사탕"><img src="assets/images/souvenir/konpeito.jpg" alt="정령의 별사탕"><small>金平糖 · 작은 정령용</small><h2>정령의 별사탕</h2><p>그을음 정령과 어린 신들을 위한 오색 설탕 공물.</p><button class="buy-button">공물함에 담기 · ¥900</button></article><article data-price="2800" data-name="변신 가면과 油 잔"><img src="assets/images/souvenir/masks-cups.jpg" alt="신의 가면과 온천 찻잔"><small>お面 · NEW</small><h2>변신 가면과 油 잔</h2><p>본모습을 감추는 신을 위한 가면과 약차 전용 잔.</p><button class="buy-button">공물함에 담기 · ¥2,800</button></article><article data-price="2200" data-name="수호 부적과 약초차"><img src="assets/images/souvenir/omamori-tea.jpg" alt="신령 수호 부적과 약초차"><small>御守 · 밤길 수호</small><h2>수호 부적과 약초차</h2><p>긴 귀로를 앞둔 신에게 올리는 부적과 따뜻한 약차.</p><button class="buy-button">공물함에 담기 · ¥2,200</button></article></div></section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__brand">
-      <a href="#home" data-page="home" class="logo logo--dark">
-        <span class="logo__mark">油</span>
-        <span class="logo__text">
-          <span class="logo__kana">あぶらや</span>
-          <span class="logo__en">ABURAYA</span>
-        </span>
-        <span class="logo__stamp">油屋</span>
-      </a>
-      <p class="footer__links"><a href="#">TERMS AND CONDITIONS</a><span>/</span><a href="#">PRIVACY POLICY</a></p>
-    </div>
-    <ul class="footer__col">
-      <li>ABURAYA / KEEPER : YUBABA</li>
-      <li>BUSINESS REGISTRATION NUMBER : 000-00-000000</li>
-      <li>MAIL-ORDER-SALES REGISTRATION NUMBER : NO.0-00-00-0000</li>
-      <li>CHIEF PRIVACY OFFICER : JENNY OOO</li>
-      <li>ADD : 1-1, Yunomachi, Onsen-gun, Japan</li>
-    </ul>
-    <ul class="footer__col">
-      <li>OPEN : SUNSET - SUNRISE (매일)</li>
-      <li>BREAK TIME : 동틀 녘 - 해 질 녘</li>
-      <li>HOLIDAY : 신들의 회의가 열리는 10월(神無月)</li>
-      <li>E-MAIL : hello@aijacuzzi.jp</li>
-      <li>TEL : +81 00 0000 0000 I FAX : +81 0 000 0000</li>
-    </ul>
-    <a href="#reservation" data-page="reservation" class="btn-fill footer__btn">BOOK YOUR BATH · ABURAYA <i>›</i></a>
-  </div>
-</footer>
-
-<!-- ================= 예약 창 ================= -->
-<div class="book" id="book" hidden>
-  <div class="book__dim" data-close></div>
-  <div class="book__panel" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
-    <button type="button" class="book__x" data-close aria-label="예약 창 닫기">×</button>
+<!-- ================= 예약 페이지 (BATH & HOTEL → 예약하기) ================= -->
+<section class="book page-panel page-screen" id="book" data-view="booking" hidden>
+  <div class="book__panel" aria-labelledby="bookTitle">
+    <a href="#reservation" class="book__back" data-close>‹ 객실 · 온천 선택으로 돌아가기</a>
     <form id="bookForm" novalidate>
       <header class="book__head">
         <h2 id="bookTitle">예약 하기</h2>
@@ -371,7 +338,39 @@
       <button type="button" class="book__submit" data-close>확인</button>
     </div>
   </div>
-</div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a href="#home" data-page="home" class="logo logo--dark">
+        <span class="logo__mark">油</span>
+        <span class="logo__text">
+          <span class="logo__kana">あぶらや</span>
+          <span class="logo__en">ABURAYA</span>
+        </span>
+        <span class="logo__stamp">油屋</span>
+      </a>
+      <p class="footer__links"><a href="#">TERMS AND CONDITIONS</a><span>/</span><a href="#">PRIVACY POLICY</a></p>
+    </div>
+    <ul class="footer__col">
+      <li>ABURAYA / KEEPER : YUBABA</li>
+      <li>BUSINESS REGISTRATION NUMBER : 000-00-000000</li>
+      <li>MAIL-ORDER-SALES REGISTRATION NUMBER : NO.0-00-00-0000</li>
+      <li>CHIEF PRIVACY OFFICER : JENNY OOO</li>
+      <li>ADD : 1-1, Yunomachi, Onsen-gun, Japan</li>
+    </ul>
+    <ul class="footer__col">
+      <li>OPEN : SUNSET - SUNRISE (매일)</li>
+      <li>BREAK TIME : 동틀 녘 - 해 질 녘</li>
+      <li>HOLIDAY : 신들의 회의가 열리는 10월(神無月)</li>
+      <li>E-MAIL : hello@aijacuzzi.jp</li>
+      <li>TEL : +81 00 0000 0000 I FAX : +81 0 000 0000</li>
+    </ul>
+    <a href="#reservation" data-page="reservation" class="btn-fill footer__btn">BOOK YOUR BATH · ABURAYA <i>›</i></a>
+  </div>
+</footer>
 
 <!-- 플로팅 버튼 : 예약하기 / WhatsApp 상담 / 맨 위로 -->
 <div class="floating">

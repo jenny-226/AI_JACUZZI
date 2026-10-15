@@ -451,20 +451,12 @@ figure[data-img] { position: relative; }
   .detail__foot .btn-fill { width: 100%; }
 }
 
-/* ===== 예약 창 (첨부 예약 화면 스타일) ===== */
-body.is-locked { overflow: hidden; }
-.book { position: fixed; inset: 0; z-index: 100; display: flex; justify-content: center; align-items: flex-start; }
-.book[hidden] { display: none; }
-.book__dim { position: absolute; inset: 0; background: rgba(0,0,0,.55); opacity: 0; transition: opacity .25s; }
-.book__panel {
-  position: relative; width: min(920px, 100%); max-height: 100vh; overflow-y: auto; background: #fff; color: #222;
-  padding: 56px clamp(16px, 5vw, 64px) 60px; opacity: 0; transform: translateY(20px); transition: opacity .25s, transform .25s;
-  font-family: var(--sans); font-weight: 400;
-}
-.book.is-open .book__dim { opacity: 1; }
-.book.is-open .book__panel { opacity: 1; transform: none; }
-@media (min-width: 960px) { .book { padding: 30px 0; } .book__panel { max-height: calc(100vh - 60px); border-radius: 12px; } }
-.book__x { position: absolute; top: 14px; right: 18px; background: none; border: 0; font-size: 30px; line-height: 1; cursor: pointer; color: #555; }
+/* ===== 예약 페이지 (첨부 예약 화면 스타일) ===== */
+.book { background: #fff; }
+.book__panel { width: min(920px, 100%); margin: 0 auto; padding: 0 var(--gutter) 90px; color: #222; font-family: var(--sans); font-weight: 400; }
+.book.is-open .book__panel { animation: detailIn .4s ease; }
+.book__back { display: inline-block; font-size: 12.5px; color: #777; margin-bottom: 26px; }
+.book__back:hover { color: var(--accent); }
 .book__head { text-align: center; }
 .book__head h2 { font-size: 24px; font-weight: 700; }
 .book__head p { font-size: 12.5px; color: #777; margin-top: 10px; }
