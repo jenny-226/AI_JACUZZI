@@ -15,8 +15,31 @@
     img.src = url;
   });
 
+  // 초현실 실사풍으로 통일한 생성 이미지 (Higgsfield). 로컬 사진 경로 → 생성 이미지 주소.
+  // 생성 이미지가 열리지 않으면 원래 로컬 사진을 그대로 씁니다.
+  const G = 'https://d8j0ntlcm91z4.cloudfront.net/user_3KZaUdp0PRiPLGJfs52RrtjpU30/hf_20261015_';
+  const GENERATED = {
+    'assets/images/baths/rooftop-view.jpg': G + '033846_5a98cb59-337b-437b-813d-4d46d0800e50.png',
+    'assets/images/baths/thatched-milky.jpg': G + '033847_b7410051-0c33-49a7-8c62-77acab8feb99.png',
+    'assets/images/baths/snow-rotenburo.jpg': G + '033846_0a30d164-5417-491d-b052-e15e2a3a03fd.png',
+    'assets/images/interior-mural.jpg': G + '033911_cedca163-954c-4de5-8336-75528c61d437.png',
+    'assets/images/baths/sea-rock.jpg': G + '033911_54344ef7-d4fb-4629-a92a-f2a7a74bea00.png',
+    'assets/images/baths/autumn-private.jpg': G + '033821_9b5df843-94cd-47ed-b0c4-9bcef6ee5781.png',
+    'assets/images/baths/night-rock.jpg': G + '033911_ce16b703-91c2-4df8-9ebc-06f8c531363f.png',
+    'assets/images/hero/interior-dragon.jpg': G + '033911_ce16b703-91c2-4df8-9ebc-06f8c531363f.png',
+    'assets/images/baths/private-stone.jpg': G + '033934_b17b5dfd-0dc2-4874-b809-6a91b0fe6c4c.png',
+    'assets/images/souvenir/wooden-plaques.jpg': G + '033822_a8b33024-249d-4bc3-9172-e8214831d99c.png',
+    'assets/images/souvenir/onsen-manju.jpg': G + '033822_6b788862-e18d-4b54-a86b-54d397331a40.png',
+    'assets/images/souvenir/konpeito.jpg': G + '033935_05edec24-9f73-4992-880d-708cb6a3965f.png',
+    'assets/images/souvenir/masks-cups.jpg': G + '033822_26c9967b-ff9c-4981-ad09-bed93e38ee0b.png',
+    'assets/images/souvenir/omamori-tea.jpg': G + '033935_2656d9c9-65b4-4a37-858c-59d80d4f6aae.png',
+    'assets/images/hero/souvenir-shop.jpg': G + '034001_0083998e-a77a-43dc-b5d1-f8f4c0a57eb9.png',
+    'assets/images/hero/exterior-bridge.jpg': G + '034001_47e515e3-6d8e-4d7d-b9de-5a481879434d.png',
+  };
+  const withGenerated = names => names.flatMap(n => GENERATED[n] ? [GENERATED[n], n] : [n]);
+
   const applyImage = async el => {
-    const names = el.dataset.img.split('|').map(n => n.trim()).filter(Boolean);
+    const names = withGenerated(el.dataset.img.split('|').map(n => n.trim()).filter(Boolean));
     el.classList.remove('img-ready', 'img-fallback');
     el.classList.add('img-loading');
     for (const name of names) {
@@ -33,6 +56,12 @@
     return false;
   };
   const hydrate = root => root.querySelectorAll('[data-img]').forEach(el => applyImage(el));
+  document.querySelectorAll('img[src^="assets/"]').forEach(img => {
+    const local = img.getAttribute('src');
+    if (!GENERATED[local]) return;
+    img.addEventListener('error', () => { if (img.src !== new URL(local, location.href).href) img.src = local; }, { once: true });
+    img.src = GENERATED[local];
+  });
 
   const imageJobs = new Map();
   document.querySelectorAll('[data-img]').forEach(el => imageJobs.set(el, applyImage(el)));
