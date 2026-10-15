@@ -91,6 +91,12 @@ img { display: block; max-width: 100%; }
 }
 .nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 1px; background: var(--accent); transition: right .3s; }
 .nav a:hover::after { right: 0; }
+.nav a.is-active::after { right: 0; }
+.page-panel[hidden] { display: none !important; }
+.page-screen { min-height: 100vh; padding-top: 150px; }
+body:not(.view-home) .header { background: rgba(255,255,255,.97); padding: 10px var(--gutter); box-shadow: 0 1px 0 var(--line); }
+body:not(.view-home) .header .logo, body:not(.view-home) .header .nav a { color: var(--ink); }
+body:not(.view-home) .header .burger span { background: var(--ink); }
 .burger { width: 22px; height: 16px; background: none; border: 0; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
 .burger span { height: 2px; background: #fff; display: block; transition: transform .3s, opacity .3s; }
 
@@ -212,6 +218,36 @@ img { display: block; max-width: 100%; }
 .reserve__info p:not(.eyebrow) { font-size: 12px; color: var(--ink-soft); margin-bottom: 40px; }
 .reserve__info .eyebrow { margin-bottom: 14px; font-size: 10px; }
 .reserve__info .btn-fill { min-width: 100%; }
+.option__badge--hotel { background: #493a67; color: #fff; }
+.booking-box { margin: 48px 0 70px; padding: clamp(24px,4vw,44px); background: #f6efe3; border: 1px solid var(--line); }
+.booking-fields { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 20px 0; }
+.booking-fields label { font-size: 12px; color: var(--ink-soft); }
+.booking-fields input, .booking-fields select { display:block; width:100%; margin-top:8px; padding:13px; border:1px solid var(--line); background:#fff; color:var(--ink); }
+.booking-result { margin-top: 16px; color: var(--accent); font-weight: 600; }
+.page-hero { min-height: 62vh; margin-top: -150px; padding: 220px var(--gutter) 90px; color:#fff; background-size:cover; background-position:center; position:relative; }
+.page-hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(20,12,8,.72),rgba(20,12,8,.08)); }
+.page-hero > * { position:relative; z-index:1; }
+.page-hero h1 { font-family:var(--serif); font-size:clamp(38px,6vw,78px); font-weight:400; line-height:1.2; }
+.about-story { display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,8vw,110px); }
+.about-story p { margin-bottom:18px; line-height:1.9; color:var(--ink-soft); }
+.about-story .btn-fill { margin-top:18px; }
+.region-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); }
+.region-grid article { background:#fff; padding:40px; }
+.region-grid b { color:var(--accent); font-family:var(--en); }
+.region-grid h3 { margin:20px 0 12px; font-family:var(--serif); font-size:24px; }
+.region-grid p { color:var(--ink-soft); line-height:1.7; }
+.shop-head { max-width:700px; margin-bottom:50px; }
+.shop-head > p:last-of-type { color:var(--ink-soft); line-height:1.8; }
+.shop-cart { display:inline-flex; gap:8px; margin-top:24px; padding:12px 18px; background:var(--ink); color:#fff; }
+.shop-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.shop-grid article { border:1px solid var(--line); background:#fff; padding-bottom:22px; }
+.shop-grid img { width:100%; aspect-ratio:4/3; object-fit:cover; }
+.shop-grid h2,.shop-grid p,.shop-grid small,.shop-grid button { margin-left:20px; margin-right:20px; }
+.shop-grid small { display:block; margin-top:18px; color:var(--accent); }
+.shop-grid h2 { margin-top:8px; font-family:var(--serif); }
+.shop-grid p { min-height:48px; color:var(--ink-soft); font-size:13px; }
+.buy-button { width:calc(100% - 40px); margin-top:16px; padding:12px; border:1px solid var(--accent); background:transparent; color:var(--accent); cursor:pointer; }
+.buy-button:hover { background:var(--accent); color:#fff; }
 .accordion { border-top: 1px solid #444; }
 .accordion details { border-bottom: 1px solid #444; }
 .accordion summary {
@@ -255,7 +291,7 @@ img { display: block; max-width: 100%; }
   display: flex; flex-direction: column; align-items: center; gap: 6px; color: #fff;
 }
 
-/* ===== 플로팅 버튼 : 예약하기 / 카톡상담 / 맨 위로 ===== */
+/* ===== 플로팅 버튼 : 예약하기 / WhatsApp 상담 / 맨 위로 ===== */
 .floating { position: fixed; right: 18px; bottom: 26px; z-index: 60; display: flex; flex-direction: column; gap: 12px; }
 .fab {
   width: 74px; height: 74px; border-radius: 50%; background: var(--accent); color: #fff;
@@ -291,6 +327,7 @@ img { display: block; max-width: 100%; }
   .burger.is-open span:nth-child(2) { opacity: 0; }
   .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .about, .reserve__body { grid-template-columns: 1fr; }
+  .shop-grid { grid-template-columns:repeat(2,1fr); }
   .about { padding-right: var(--gutter); }
   .features, .bath__grid { grid-template-columns: repeat(2, 1fr); }
   .bath__grid { width: 100%; }
@@ -301,6 +338,9 @@ img { display: block; max-width: 100%; }
   .location__vertical { display: none; }
 }
 @media (max-width: 640px) {
+  .page-screen { padding-top:110px; }
+  .booking-fields,.about-story,.region-grid,.shop-grid { grid-template-columns:1fr; }
+  .page-hero { margin-top:-110px; padding-top:170px; }
   .hero__copy { right: 80px; left: var(--gutter); max-width: none; top: auto; bottom: 170px; transform: none; }
   .hero__label { bottom: 118px; font-size: 11px; }
   .hero__dots { display: none; } /* 모바일은 화살표·번호로 넘김 (점이 화살표를 가리지 않도록) */
@@ -338,9 +378,10 @@ figure[data-img] { position: relative; }
 /* ===== 03 SOUVENIR ===== */
 .souvenir__head { margin-bottom: 40px; }
 .souvenir__strip { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.1fr 1.3fr; gap: 4px; }
+.souvenir__strip > a { display:block; color:inherit; }
 .souvenir__strip figure { height: clamp(260px, 30vw, 420px); position: relative; overflow: hidden; }
 .souvenir__strip figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 14px 12px; color: #fff; font-family: var(--serif); font-size: 14px; background: linear-gradient(0deg, rgba(0,0,0,.6), transparent); }
-@media (max-width: 1000px) { .souvenir__strip { grid-template-columns: repeat(2, 1fr); } .souvenir__strip figure:first-child { grid-column: 1 / -1; } }
+@media (max-width: 1000px) { .souvenir__strip { grid-template-columns: repeat(2, 1fr); } .souvenir__strip > a:first-child { grid-column: 1 / -1; } }
 
 /* ===== 탕 선택 옵션 (공용 / 개인) ===== */
 .options { margin-bottom: 70px; }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI JACUZZI · 湯の宿</title>
-  <meta name="description" content="팔백만 신들이 쉬어가는 온천장, AI JACUZZI">
+  <title>아부라야 · 油屋</title>
+  <meta name="description" content="팔백만 신들이 쉬어가는 목욕탕, 아부라야 油屋">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&family=Yuji+Syuku&family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -14,32 +14,30 @@
 
 <!-- ================= HEADER ================= -->
 <header class="header" id="header">
-  <a href="#top" class="logo" aria-label="AI JACUZZI 홈">
-    <span class="logo__mark">湯</span>
+  <a href="#home" data-page="home" class="logo" aria-label="아부라야 홈">
+    <span class="logo__mark">油</span>
     <span class="logo__text">
-      <span class="logo__kana">ゆのやど</span>
-      <span class="logo__en">AI JACUZZI</span>
+      <span class="logo__kana">あぶらや</span>
+      <span class="logo__en">ABURAYA</span>
     </span>
-    <span class="logo__stamp">月光</span>
+    <span class="logo__stamp">油屋</span>
   </a>
   <nav class="nav" id="nav">
-    <a href="#about">ABOUT</a>
-    <a href="#bath">BATH</a>
-    <a href="#reservation">RESERVATION</a>
-    <a href="#location">LOCATION</a>
-    <a href="#souvenir">SOUVENIR</a>
-    <a href="#faq">FAQ</a>
+    <a href="#home" data-page="home">HOME</a>
+    <a href="#about" data-page="about">ABOUT US</a>
+    <a href="#reservation" data-page="reservation">BATH & HOTEL</a>
+    <a href="#shop" data-page="shop">SHOP</a>
   </nav>
   <button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
 </header>
 
 <!-- ================= HERO : 외관 → 내부 영상 ================= -->
-<section class="hero" id="top">
+<section class="hero page-panel" id="top" data-view="home">
   <!-- HTML·CSS·JS 만으로 재생되는 히어로 영상 : 외관 → 내부 -->
   <div class="hero__reel" id="heroReel" aria-hidden="true">
-    <!-- 대표 사진 10장 : 메인 이미지 2장 → 신들의 탕 7장 → 신들의 공물 -->
+    <!-- 사람이 등장하지 않는 대표 사진 10장 -->
     <div class="reel__shot reel__shot--whole" data-img="assets/images/hero/main-1.jpg" data-label="神の湯 · 불 밝힌 신들의 온천장"></div>
-    <div class="reel__shot reel__shot--whole" data-img="assets/images/hero/main-2.jpg" data-label="神の湯 · 온천장 · 약탕 · 공물"></div>
+    <div class="reel__shot reel__shot--whole" data-img="assets/images/hero/bathhouse-exterior-only.png" data-label="油屋 · 안개 속에 불을 밝힌 신들의 목욕탕"></div>
     <div class="reel__shot" data-img="assets/images/baths/thatched-milky.jpg" data-label="露天 · 숲의 신령이 머무는 유백색 탕"></div>
     <div class="reel__shot" data-img="assets/images/baths/night-rock.jpg" data-label="内湯 · 밤에만 문을 여는 암반탕"></div>
     <div class="reel__shot" data-img="assets/images/baths/rooftop-view.jpg" data-label="露天 · 하늘의 신을 맞는 전망탕"></div>
@@ -47,13 +45,7 @@
     <div class="reel__shot" data-img="assets/images/baths/snow-rotenburo.jpg" data-label="露天 · 눈의 신을 위한 설경탕"></div>
     <div class="reel__shot" data-img="assets/images/baths/sea-rock.jpg" data-label="露天 · 바다의 신이 쉬어가는 바위탕"></div>
     <div class="reel__shot" data-img="assets/images/baths/private-stone.jpg" data-label="露天 · 귀한 신을 위한 객실 노천탕"></div>
-    <div class="reel__shot reel__shot--grid" data-label="供物 · 신들께 올리는 공물과 기념품">
-      <div data-img="assets/images/souvenir/onsen-manju.jpg"><span>신찬 만주</span></div>
-      <div data-img="assets/images/souvenir/konpeito.jpg"><span>별사탕</span></div>
-      <div data-img="assets/images/souvenir/masks-cups.jpg"><span>신의 가면 · 湯 잔</span></div>
-      <div data-img="assets/images/souvenir/wooden-plaques.jpg"><span>약탕 나무패</span></div>
-      <div data-img="assets/images/souvenir/omamori-tea.jpg"><span>부적 · 약초차</span></div>
-    </div>
+    <div class="reel__shot" data-img="assets/images/hero/souvenir-shop.jpg" data-label="供物 · 신들께 올리는 공물과 기념품"></div>
   </div>
   <canvas class="hero__steam" id="steam" aria-hidden="true"></canvas>
   <div class="hero__shade"></div>
@@ -61,20 +53,20 @@
   <div class="hero__label" id="heroLabel">神の湯 · 불 밝힌 신들의 온천장</div>
 
   <div class="hero__copy">
-    <h1>팔백만 신들이 쉬어가는 온천<br>신들의 휴식은 “AI JACUZZI”</h1>
-    <p>“AI JACUZZI”는 먼 길을 오신 신들께서<br>
+    <h1>팔백만 신들이 쉬어가는 목욕탕<br>신들의 휴식처, “아부라야”</h1>
+    <p>“아부라야”는 먼 길을 오신 신들께서<br>
       지친 몸을 씻고 편히 쉬어가실 수 있도록<br>
       해 질 녘마다 불을 밝히고 약탕을 데웁니다.</p>
     <div class="hero__logo">
-      <span class="logo__mark">湯</span>
+      <span class="logo__mark">油</span>
       <span class="logo__text">
-        <span class="logo__kana">ゆのやど</span>
-        <span class="logo__en">AI JACUZZI</span>
+        <span class="logo__kana">あぶらや</span>
+        <span class="logo__en">ABURAYA</span>
       </span>
-      <span class="logo__stamp">月光</span>
+      <span class="logo__stamp">油屋</span>
     </div>
   </div>
-  <div class="hero__vertical">ゆのやど</div>
+  <div class="hero__vertical">あぶらや</div>
   <div class="hero__nav">
     <button class="hero__arrow" id="heroPrev" aria-label="이전 사진">‹</button>
     <span class="hero__count"><b id="heroNow">01</b> / <span id="heroTotal">10</span></span>
@@ -85,11 +77,11 @@
 </section>
 
 <!-- ================= 01 ABOUT ================= -->
-<section class="about section" id="about">
+<section class="about section page-panel" id="aboutTeaser" data-view="home">
   <div class="about__text reveal">
     <p class="eyebrow">01_ ABOUT US</p>
     <h2 class="title">신들을 위해 백 년간<br>불을 밝혀온 온천장</h2>
-    <a href="#bath" class="btn-line">READ MORE <i>›</i></a>
+    <a href="#about" class="btn-line" data-page="about">READ MORE <i>›</i></a>
   </div>
   <div class="about__photos">
     <figure class="reveal" data-img="assets/images/hero/exterior-bridge.jpg"></figure>
@@ -99,25 +91,25 @@
 </section>
 
 <!-- ================= BANNER ================= -->
-<section class="banner">
+<section class="banner page-panel" data-view="home">
   <div class="banner__head reveal">
-    <h2>신과 정령을 위한 전통 목욕 문화<br>“AI JACUZZI”만의 특별함</h2>
-    <p>A BATHHOUSE FOR THE EIGHT MILLION GODS.<br>SPECIAL ONLY IN “AI JACUZZI”</p>
+    <h2>신과 정령을 위한 전통 목욕 문화<br>“아부라야”만의 특별함</h2>
+    <p>A BATHHOUSE FOR THE EIGHT MILLION GODS.<br>SPECIAL ONLY IN “ABURAYA”</p>
   </div>
   <div class="banner__img" data-img="assets/images/hero/souvenir-shop.jpg">
     <div class="banner__logo reveal">
-      <span class="logo__mark">湯</span>
+      <span class="logo__mark">油</span>
       <span class="logo__text">
-        <span class="logo__kana">ゆのやど</span>
-        <span class="logo__en">AI JACUZZI</span>
+        <span class="logo__kana">あぶらや</span>
+        <span class="logo__en">ABURAYA</span>
       </span>
-      <span class="logo__stamp">月光</span>
+      <span class="logo__stamp">油屋</span>
     </div>
   </div>
 </section>
 
 <!-- ================= 4 FEATURES ================= -->
-<section class="features section">
+<section class="features section page-panel" data-view="home">
   <article class="feature reveal">
     <figure data-img="assets/images/baths/thatched-milky.jpg"></figure>
     <h3>[神湯]</h3>
@@ -141,22 +133,22 @@
 </section>
 
 <!-- ================= 02 BATH (사계절 탕) ================= -->
-<section class="bath section" id="bath">
+<section class="bath section page-panel" id="bath" data-view="home">
   <div class="bath__head reveal">
     <p class="eyebrow">02_ BATH</p>
     <h2 class="title">계절을 담은 네 개의 탕<br><small>계절마다 찾아오시는 신들을 위해 준비한 탕입니다.</small></h2>
   </div>
   <div class="bath__grid">
-    <a class="season reveal" href="#reservation" data-season="spring" data-img="assets/images/baths/rooftop-view.jpg">
+    <a class="season reveal" href="#reservation" data-page="reservation" data-season="spring" data-img="assets/images/baths/rooftop-view.jpg">
       <strong>[春]</strong><span>하늘의 신을 맞는 전망탕</span>
     </a>
-    <a class="season reveal" href="#reservation" data-season="summer" data-img="assets/images/baths/thatched-milky.jpg">
+    <a class="season reveal" href="#reservation" data-page="reservation" data-season="summer" data-img="assets/images/baths/thatched-milky.jpg">
       <strong>[夏]</strong><span>숲의 신령이 머무는 유백색 탕</span>
     </a>
-    <a class="season reveal" href="#reservation" data-season="autumn" data-img="assets/images/baths/autumn-private.jpg">
+    <a class="season reveal" href="#reservation" data-page="reservation" data-season="autumn" data-img="assets/images/baths/autumn-private.jpg">
       <strong>[秋]</strong><span>단풍 든 산신의 계곡탕</span>
     </a>
-    <a class="season reveal" href="#reservation" data-season="winter" data-img="assets/images/baths/snow-rotenburo.jpg">
+    <a class="season reveal" href="#reservation" data-page="reservation" data-season="winter" data-img="assets/images/baths/snow-rotenburo.jpg">
       <strong>[冬]</strong><span>눈의 신을 위한 설경탕</span>
     </a>
   </div>
@@ -168,25 +160,25 @@
 </section>
 
 <!-- ================= 03 SOUVENIR ================= -->
-<section class="souvenir section" id="souvenir">
+<section class="souvenir section page-panel" id="souvenir" data-view="home">
   <div class="souvenir__head reveal">
     <p class="eyebrow">03_ SOUVENIR</p>
     <h2 class="title">신들의 공물과 기념품<br><small>목욕을 마친 신들이 들르는 작은 가게입니다.</small></h2>
   </div>
   <div class="souvenir__strip">
-    <figure class="reveal" data-img="assets/images/souvenir/wooden-plaques.jpg"><figcaption>[薬湯札] 약탕 나무패</figcaption></figure>
-    <figure class="reveal" data-img="assets/images/souvenir/onsen-manju.jpg"><figcaption>[神饌] 신찬 만주</figcaption></figure>
-    <figure class="reveal" data-img="assets/images/souvenir/konpeito.jpg"><figcaption>[金平糖] 정령의 별사탕</figcaption></figure>
-    <figure class="reveal" data-img="assets/images/souvenir/masks-cups.jpg"><figcaption>[お面] 신의 가면과 湯 잔</figcaption></figure>
-    <figure class="reveal" data-img="assets/images/souvenir/omamori-tea.jpg"><figcaption>[御守] 부적과 약초차</figcaption></figure>
+    <a href="#shop" data-page="shop"><figure class="reveal" data-img="assets/images/souvenir/wooden-plaques.jpg"><figcaption>[薬湯札] 약탕 나무패</figcaption></figure></a>
+    <a href="#shop" data-page="shop"><figure class="reveal" data-img="assets/images/souvenir/onsen-manju.jpg"><figcaption>[神饌] 신찬 만주</figcaption></figure></a>
+    <a href="#shop" data-page="shop"><figure class="reveal" data-img="assets/images/souvenir/konpeito.jpg"><figcaption>[金平糖] 정령의 별사탕</figcaption></figure></a>
+    <a href="#shop" data-page="shop"><figure class="reveal" data-img="assets/images/souvenir/masks-cups.jpg"><figcaption>[お面] 신의 가면과 油 잔</figcaption></figure></a>
+    <a href="#shop" data-page="shop"><figure class="reveal" data-img="assets/images/souvenir/omamori-tea.jpg"><figcaption>[御守] 부적과 약초차</figcaption></figure></a>
   </div>
 </section>
 
 <!-- ================= 04 RESERVATION ================= -->
-<section class="reserve section" id="reservation">
+<section class="reserve section page-panel page-screen" id="reservation" data-view="reservation">
   <div class="reserve__head reveal">
     <p class="eyebrow">04_ RESERVATION</p>
-    <h2 class="title">이용 안내<br>탕별 예약</h2>
+    <h2 class="title">온천과 객실을<br>한 번에 예약</h2>
   </div>
 
   <div class="options">
@@ -196,6 +188,7 @@
         <button type="button" class="is-on" data-filter="all">전체</button>
         <button type="button" data-filter="shared">공용 온천</button>
         <button type="button" data-filter="private">개인 온천</button>
+        <button type="button" data-filter="hotel">객실</button>
       </div>
     </div>
     <div class="options__grid" id="optionGrid">
@@ -241,6 +234,9 @@
         <p>산신께서 홀로 쉬시는 계곡의 나무 욕조</p>
         <em>개인 · 50분 · 1~4柱</em>
       </label>
+      <label class="option reveal" data-type="hotel"><input type="radio" name="bath" value="달빛 다다미 객실"><figure data-img="assets/images/hero/interior-dragon.jpg"><span class="option__badge option__badge--hotel">객실</span></figure><strong>달빛 다다미 객실</strong><p>달과 용신을 위한 고요한 다다미 객실</p><em>1박 · 최대 2柱 · ¥32,000</em></label>
+      <label class="option reveal" data-type="hotel"><input type="radio" name="bath" value="정원 노천탕 객실"><figure data-img="assets/images/baths/private-stone.jpg"><span class="option__badge option__badge--hotel">객실</span></figure><strong>정원 노천탕 객실</strong><p>전용 석탕과 작은 정원을 갖춘 귀빈실</p><em>1박 · 최대 4柱 · ¥48,000</em></label>
+      <label class="option reveal" data-type="hotel"><input type="radio" name="bath" value="대신령 연회 객실"><figure data-img="assets/images/hero/main-1.jpg"><span class="option__badge option__badge--hotel">객실</span></figure><strong>대신령 연회 객실</strong><p>큰 몸집의 신과 수행단을 위한 넓은 객실</p><em>1박 · 최대 8柱 · ¥72,000</em></label>
       <label class="option reveal" data-type="private">
         <input type="radio" name="bath" value="야간 암반 전세탕">
         <figure data-img="assets/images/baths/night-rock.jpg"><span class="option__badge option__badge--private">개인</span></figure>
@@ -258,7 +254,8 @@
     </div>
     <p class="options__picked">선택한 탕 : <b id="pickedBath">전망 노천탕</b> <span id="pickedType">(공용)</span></p>
   </div>
-  <div class="reserve__body">
+    <form class="booking-box" id="bookingForm"><p class="eyebrow">BOOKING DETAILS</p><div class="booking-fields"><label>방문일 / 체크인<input type="date" id="bookingDate" required></label><label>시간<select id="bookingTime"><option>18:00</option><option>20:00</option><option>22:00</option><option>객실 체크인 15:00</option></select></label><label>신령 수<select id="bookingGuests"><option>1</option><option>2</option><option>3</option><option>4</option></select></label></div><button class="btn-fill" type="submit">선택한 온천·객실 예약하기 <i>›</i></button><p id="bookingResult" class="booking-result" role="status"></p></form>
+    <div class="reserve__body">
     <div class="reserve__info reveal">
       <p class="eyebrow">INFORMATION</p>
       <p>예약 전 해당 안내사항을 꼭 확인해주세요.<br>내용을 모두 숙지 후 버튼을 클릭해 예약해주세요.</p>
@@ -286,10 +283,10 @@
 </section>
 
 <!-- ================= 05 LOCATION ================= -->
-<section class="location" id="location" data-img="assets/images/baths/night-rock.jpg">
+<section class="location page-panel" id="location" data-view="home" data-img="assets/images/baths/night-rock.jpg">
   <div class="location__inner reveal">
     <p class="eyebrow">05_ LOCATION</p>
-    <h2 class="title">AI JACUZZI “오시는 길”<br>자세히 알려드립니다.</h2>
+    <h2 class="title">아부라야 “오시는 길”<br>자세히 알려드립니다.</h2>
     <p>강 건너 붉은 다리를 지나면 불 밝힌 목조 온천장이 보입니다.<br>
       해 질 녘 등불이 켜지면 영업을 시작하며, 바다 열차 정류장에서 걸어서 오실 수 있습니다.</p>
     <a href="#" class="btn-fill">READ MORE <i>›</i></a>
@@ -301,22 +298,26 @@
   </div>
 </section>
 
+<section class="page-panel page-screen about-page" id="about" data-view="about"><div class="page-hero" data-img="assets/images/hero/exterior-bridge.jpg"><p class="eyebrow">ABOUT ABURAYA</p><h1>강과 산, 신들의 길이<br>만나는 아부라야</h1></div><div class="section about-story"><div><p class="section-no">油屋 · THE BATHHOUSE</p><h2 class="title">해가 지면 열리는<br>팔백만 신들의 목욕탕</h2></div><div><p>아부라야는 인간의 시간이 멈춘 뒤 문을 엽니다. 강의 신, 숲의 정령, 눈과 바다의 신이 붉은 다리를 건너 각자의 탕과 객실로 향합니다.</p><p>목욕탕이 자리한 유노마치 계곡에는 삼나무 숲길, 등불 시장, 바다 열차 정류장이 이어집니다. 이 페이지의 시설과 지역 설정은 세계관 체험을 위한 창작 안내입니다.</p><a class="btn-fill" href="#reservation" data-page="reservation">온천과 객실 살펴보기 <i>›</i></a></div></div><div class="region-grid section"><article><b>01</b><h3>주홍빛 건넘다리</h3><p>신들이 인간 세계에서 아부라야로 들어오는 첫 관문입니다.</p></article><article><b>02</b><h3>유노마치 계곡</h3><p>약초와 온천수가 모이는 안개 낀 산골짜기입니다.</p></article><article><b>03</b><h3>등불 시장</h3><p>목욕을 마친 신들이 공물과 간식을 고르는 밤 시장입니다.</p></article></div></section>
+
+<section class="page-panel page-screen shop-page section" id="shop" data-view="shop"><header class="shop-head"><p class="eyebrow">GIFTS FOR THE GODS</p><h1 class="title">신들의 상점</h1><p>인간용 기념품 대신, 목욕을 마친 신과 정령을 위한 공물·약탕 패·부적을 준비했습니다.</p><div class="shop-cart">담은 공물 <b id="shopCount">0</b>개 · <strong id="shopTotal">¥0</strong></div></header><div class="shop-grid"><article data-price="1600" data-name="약탕 나무패"><img src="assets/images/souvenir/wooden-plaques.jpg" alt="신들을 위한 약탕 나무패"><small>薬湯札 · 산신 추천</small><h2>약탕 나무패</h2><p>탕지기에게 원하는 약초 배합을 전하는 신령 전용 표찰.</p><button class="buy-button">공물함에 담기 · ¥1,600</button></article><article data-price="1200" data-name="신찬 만주"><img src="assets/images/souvenir/onsen-manju.jpg" alt="신찬 만주"><small>神饌 · 인기 공물</small><h2>신찬 만주</h2><p>온천 증기로 쪄내어 목욕 뒤 허기를 달래는 팥 만주.</p><button class="buy-button">공물함에 담기 · ¥1,200</button></article><article data-price="900" data-name="정령의 별사탕"><img src="assets/images/souvenir/konpeito.jpg" alt="정령의 별사탕"><small>金平糖 · 작은 정령용</small><h2>정령의 별사탕</h2><p>그을음 정령과 어린 신들을 위한 오색 설탕 공물.</p><button class="buy-button">공물함에 담기 · ¥900</button></article><article data-price="2800" data-name="변신 가면과 油 잔"><img src="assets/images/souvenir/masks-cups.jpg" alt="신의 가면과 온천 찻잔"><small>お面 · NEW</small><h2>변신 가면과 油 잔</h2><p>본모습을 감추는 신을 위한 가면과 약차 전용 잔.</p><button class="buy-button">공물함에 담기 · ¥2,800</button></article><article data-price="2200" data-name="수호 부적과 약초차"><img src="assets/images/souvenir/omamori-tea.jpg" alt="신령 수호 부적과 약초차"><small>御守 · 밤길 수호</small><h2>수호 부적과 약초차</h2><p>긴 귀로를 앞둔 신에게 올리는 부적과 따뜻한 약차.</p><button class="buy-button">공물함에 담기 · ¥2,200</button></article></div></section>
+
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="footer__inner">
     <div class="footer__brand">
-      <a href="#top" class="logo logo--dark">
-        <span class="logo__mark">湯</span>
+      <a href="#home" data-page="home" class="logo logo--dark">
+        <span class="logo__mark">油</span>
         <span class="logo__text">
-          <span class="logo__kana">ゆのやど</span>
-          <span class="logo__en">AI JACUZZI</span>
+          <span class="logo__kana">あぶらや</span>
+          <span class="logo__en">ABURAYA</span>
         </span>
-        <span class="logo__stamp">月光</span>
+        <span class="logo__stamp">油屋</span>
       </a>
       <p class="footer__links"><a href="#">TERMS AND CONDITIONS</a><span>/</span><a href="#">PRIVACY POLICY</a></p>
     </div>
     <ul class="footer__col">
-      <li>AI JACUZZI / CEO : JENNY OOO</li>
+      <li>ABURAYA / KEEPER : YUBABA</li>
       <li>BUSINESS REGISTRATION NUMBER : 000-00-000000</li>
       <li>MAIL-ORDER-SALES REGISTRATION NUMBER : NO.0-00-00-0000</li>
       <li>CHIEF PRIVACY OFFICER : JENNY OOO</li>
@@ -329,19 +330,19 @@
       <li>E-MAIL : hello@aijacuzzi.jp</li>
       <li>TEL : +81 00 0000 0000 I FAX : +81 0 000 0000</li>
     </ul>
-    <a href="#reservation" class="btn-fill footer__btn">BOOK YOUR BATH · AI JACUZZI <i>›</i></a>
+    <a href="#reservation" data-page="reservation" class="btn-fill footer__btn">BOOK YOUR BATH · ABURAYA <i>›</i></a>
   </div>
 </footer>
 
-<!-- 플로팅 버튼 : 예약하기 / 카톡상담 / 맨 위로 -->
+<!-- 플로팅 버튼 : 예약하기 / WhatsApp 상담 / 맨 위로 -->
 <div class="floating">
-  <a href="#reservation" class="fab" aria-label="예약하기">
+  <a href="#reservation" data-page="reservation" class="fab" aria-label="예약하기">
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2M14 17h2"/></svg>
     예약하기
   </a>
-  <a href="#" class="fab" aria-label="카톡상담">
+  <a href="https://wa.me/810000000000?text=%EC%95%84%EB%B6%80%EB%9D%BC%EC%95%BC%20%EC%98%88%EC%95%BD%EC%9D%84%20%EB%AC%B8%EC%9D%98%ED%95%A9%EB%8B%88%EB%8B%A4" target="_blank" rel="noopener noreferrer" class="fab" aria-label="WhatsApp 상담">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4C6.9 4 3 7.1 3 11c0 2.4 1.5 4.5 3.9 5.8L6 20l3.7-2.3c.7.1 1.5.2 2.3.2 5.1 0 9-3.1 9-6.9S17.1 4 12 4z"/><text x="12" y="13" text-anchor="middle" font-size="5" font-family="Arial" font-weight="700" fill="#fff" stroke="none">TALK</text></svg>
-    카톡상담
+    WhatsApp
   </a>
   <a href="#top" class="fab fab--top" id="toTop" aria-label="맨 위로">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V4M5 11l7-7 7 7"/></svg>

@@ -178,7 +178,7 @@
     requestAnimationFrame(tick);
   }
 
-  // ---------- 4. 헤더 / 메뉴 ----------
+  // ---------- 4. 헤더 / 메뉴와 화면 전환 ----------
   const header = document.getElementById('header');
   const toTop = document.getElementById('toTop');
   const onScroll = () => {
@@ -198,6 +198,25 @@
   nav.addEventListener('click', e => {
     if (e.target.tagName === 'A') { nav.classList.remove('is-open'); burger.classList.remove('is-open'); }
   });
+
+  const validPages = ['home', 'about', 'reservation', 'shop'];
+  const showPage = (page, push = true) => {
+    if (!validPages.includes(page)) page = 'home';
+    document.querySelectorAll('.page-panel').forEach(panel => {
+      panel.hidden = panel.dataset.view !== page;
+    });
+    document.body.className = document.body.className.replace(/\bview-\w+\b/g, '').trim();
+    document.body.classList.add(`view-${page}`);
+    document.querySelectorAll('.nav [data-page]').forEach(link => link.classList.toggle('is-active', link.dataset.page === page));
+    if (push && location.hash !== `#${page}`) history.pushState({ page }, '', `#${page}`);
+    window.scrollTo({ top: 0, behavior: push ? 'smooth' : 'auto' });
+    onScroll();
+  };
+  document.querySelectorAll('[data-page]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    showPage(link.dataset.page);
+  }));
+  window.addEventListener('popstate', () => showPage(location.hash.slice(1), false));
 
   // ---------- 5. 스크롤 등장 애니메이션 ----------
   const io = new IntersectionObserver(entries => {
@@ -220,7 +239,7 @@
   const getCards = () => [...document.querySelectorAll('.option')];
   const pickedBath = document.getElementById('pickedBath');
   const pickedType = document.getElementById('pickedType');
-  const TYPE_LABEL = { shared: '공용', private: '개인' };
+  const TYPE_LABEL = { shared: '공용', private: '개인', hotel: '객실' };
   const selectedCard = () => getCards().find(c => c.querySelector('input').checked);
   const updatePicked = () => {
     const card = selectedCard();
@@ -252,4 +271,34 @@
     const bath = card ? `${card.querySelector('input').value} (${TYPE_LABEL[card.dataset.type]})` : '선택한 탕';
     alert(`안내사항에 동의하셨습니다.\n「${bath}」 예약 페이지로 이동합니다.`);
   });
+
+  // ---------- 8. 예약 및 신들의 상점 ----------
+  const bookingDate = document.getElementById('bookingDate');
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  bookingDate.min = bookingDate.value = tomorrow.toISOString().slice(0, 10);
+  document.getElementById('bookingForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const card = selectedCard();
+    const offering = card ? card.querySelector('input').value : '선택한 서비스';
+    const guests = document.getElementById('bookingGuests').value;
+    const time = document.getElementById('bookingTime').value;
+    document.getElementById('bookingResult').textContent = `${offering} · ${bookingDate.value} · ${time} · ${guests}柱 예약 요청이 접수되었습니다.`;
+  });
+
+  const shopState = JSON.parse(localStorage.getItem('aburaya-offerings') || '[]');
+  const renderShopCart = () => {
+    document.getElementById('shopCount').textContent = shopState.length;
+    document.getElementById('shopTotal').textContent = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY', maximumFractionDigits: 0 }).format(shopState.reduce((sum, item) => sum + item.price, 0));
+  };
+  document.querySelectorAll('.buy-button').forEach(button => button.addEventListener('click', () => {
+    const card = button.closest('article');
+    shopState.push({ name: card.dataset.name, price: Number(card.dataset.price) });
+    localStorage.setItem('aburaya-offerings', JSON.stringify(shopState));
+    renderShopCart();
+    button.textContent = '공물함에 담았습니다 ✓';
+    setTimeout(() => { button.textContent = `공물함에 담기 · ¥${Number(card.dataset.price).toLocaleString()}`; }, 1400);
+  }));
+  renderShopCart();
+  showPage(location.hash.slice(1) || 'home', false);
 })();
